@@ -1,4 +1,4 @@
-import { getNote, publishedNotes } from "@/content/notes";
+import { getNote, getNoteLesson, publishedNotes } from "@/content/notes";
 import { getProject, publishedProjects } from "@/content/projects";
 import { profile } from "@/content/profile";
 import { absoluteUrl, siteConfig } from "@/config/site";
@@ -115,18 +115,20 @@ export function getMetadataForPath(pathname: string): PageMetadata {
   }
 
   if (pathname.startsWith("/notes/")) {
-    const note = getNote(pathname.slice("/notes/".length));
-    if (note) return {
-      title: `${note.title}｜笔记｜${siteConfig.name}`,
-      description: note.description,
+    const [noteSlug, lessonId] = pathname.slice("/notes/".length).split("/");
+    const note = getNote(noteSlug);
+    const lesson = lessonId ? getNoteLesson(noteSlug, lessonId) : undefined;
+    if (note && (!lessonId || lesson)) return {
+      title: `${lesson ? `${lesson.title}｜${note.title}` : note.title}｜笔记｜${siteConfig.name}`,
+      description: lesson?.summary ?? note.description,
       pathname,
       noindex: note.noindex,
       type: "article",
       jsonLd: [{
         "@context": "https://schema.org",
         "@type": "TechArticle",
-        headline: note.title,
-        description: note.description,
+        headline: lesson?.title ?? note.title,
+        description: lesson?.summary ?? note.description,
         datePublished: note.publishedAt,
         ...(note.updatedAt && { dateModified: note.updatedAt }),
         author: personJsonLd(),

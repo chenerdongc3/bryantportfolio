@@ -25,6 +25,7 @@ export function AppRoutes() {
             <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/notes" element={<Notes />} />
             <Route path="/notes/:slug" element={<NoteDetail />} />
+            <Route path="/notes/:slug/:lessonId" element={<NoteDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />

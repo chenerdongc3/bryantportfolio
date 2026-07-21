@@ -8,7 +8,10 @@ export function getPublicRoutes() {
     ...publishedProjects.map((project) => `/projects/${project.slug}`),
     "/about",
     "/notes",
-    ...publishedNotes.filter((note) => !note.noindex).map((note) => `/notes/${note.slug}`),
+    ...publishedNotes.filter((note) => !note.noindex).flatMap((note) => [
+      `/notes/${note.slug}`,
+      ...(note.lessons?.map((lesson) => `/notes/${note.slug}/${lesson.id}`) ?? []),
+    ]),
   ];
 }
 
@@ -18,6 +21,12 @@ export function getIndexableRoutes() {
     "/projects",
     ...publishedProjects.map((project) => `/projects/${project.slug}`),
     "/about",
-    ...(publishedNotes.length ? ["/notes", ...publishedNotes.map((note) => `/notes/${note.slug}`)] : []),
+    ...(publishedNotes.length ? [
+      "/notes",
+      ...publishedNotes.flatMap((note) => [
+        `/notes/${note.slug}`,
+        ...(note.lessons?.map((lesson) => `/notes/${note.slug}/${lesson.id}`) ?? []),
+      ]),
+    ] : []),
   ];
 }

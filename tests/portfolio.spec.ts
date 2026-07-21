@@ -47,7 +47,10 @@ test("German notes are indexable and unknown routes return 404", async ({ page }
   await page.getByRole("link", { name: "德语学习笔记" }).click();
   await expect(page).toHaveURL(/\/notes\/german$/);
   await expect(page.getByRole("heading", { level: 2, name: "第一部分 词法" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "1.1 冠词 Articles" })).toBeVisible();
+  await page.getByRole("link", { name: "1.1 冠词 Articles" }).click();
+  await expect(page).toHaveURL(/\/notes\/german\/articles$/);
+  await expect(page.getByRole("heading", { level: 1, name: "冠词 Articles" })).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "德语学习笔记目录" })).toBeVisible();
 
   const response = await page.goto("/definitely-missing");
   expect(response?.status()).toBe(404);

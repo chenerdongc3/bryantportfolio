@@ -42,6 +42,19 @@ const noteSchema = z.object({
       label: z.string().min(1),
     })).min(1),
   })).min(1).optional(),
+  lessons: z.array(z.object({
+    id: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+    title: z.string().min(1),
+    eyebrow: z.string().min(1),
+    summary: z.string().min(1),
+    formula: z.string().min(1),
+    points: z.array(z.string().min(1)).length(3),
+    examples: z.array(z.object({
+      source: z.string().min(1),
+      translation: z.string().min(1),
+    })).length(2),
+    tip: z.string().min(1),
+  })).min(1).optional(),
 }).superRefine((note, context) => {
   if (note.cover && !note.coverAlt) {
     context.addIssue({ code: "custom", message: "Note cover requires coverAlt" });
@@ -50,6 +63,14 @@ const noteSchema = z.object({
   const outlineIds = note.outline?.flatMap((group) => group.items.map((item) => item.id)) ?? [];
   if (new Set(outlineIds).size !== outlineIds.length) {
     context.addIssue({ code: "custom", message: "Note outline item ids must be unique" });
+  }
+
+  const lessonIds = note.lessons?.map((lesson) => lesson.id) ?? [];
+  if (new Set(lessonIds).size !== lessonIds.length) {
+    context.addIssue({ code: "custom", message: "Note lesson ids must be unique" });
+  }
+  if (note.lessons && (outlineIds.length !== lessonIds.length || outlineIds.some((id) => !lessonIds.includes(id)))) {
+    context.addIssue({ code: "custom", message: "Note outline and lesson ids must match" });
   }
 });
 

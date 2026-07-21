@@ -31,6 +31,22 @@ export type NoteOutlineItem = {
   label: string;
 };
 
+export type NoteLessonExample = {
+  source: string;
+  translation: string;
+};
+
+export type NoteLesson = {
+  id: string;
+  title: string;
+  eyebrow: string;
+  summary: string;
+  formula: string;
+  points: string[];
+  examples: NoteLessonExample[];
+  tip: string;
+};
+
 export type NoteOutlineGroup = {
   title: string;
   items: NoteOutlineItem[];
@@ -51,4 +67,5 @@ export type Note = {
   coverAlt?: string;
   body: string;
   outline?: NoteOutlineGroup[];
+  lessons?: NoteLesson[];
 };

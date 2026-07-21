@@ -28,6 +28,7 @@ describe("content model", () => {
     const germanNote = publishedNotes.find((note) => note.slug === "german");
     expect(germanNote?.outline).toHaveLength(2);
     expect(germanNote?.outline?.flatMap((group) => group.items)).toHaveLength(13);
-    expect(getIndexableRoutes()).toEqual(expect.arrayContaining(["/notes", "/notes/german"]));
+    expect(germanNote?.lessons).toHaveLength(13);
+    expect(getIndexableRoutes()).toEqual(expect.arrayContaining(["/notes", "/notes/german", "/notes/german/articles"]));
   });
 });

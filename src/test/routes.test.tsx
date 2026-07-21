@@ -25,7 +25,15 @@ describe("public routes", () => {
     render(<MemoryRouter initialEntries={["/notes/german"]}><AppRoutes /></MemoryRouter>);
     expect(await screen.findByRole("heading", { level: 1, name: "德语学习笔记" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "第一部分 词法" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "2.6 从句 Linker" })).toHaveAttribute("href", "#linker");
+    expect(screen.getByRole("link", { name: "2.6 从句 Linker" })).toHaveAttribute("href", "/notes/german/linker");
+  });
+
+  it("renders a concise grammar lesson with its directory", async () => {
+    render(<MemoryRouter initialEntries={["/notes/german/articles"]}><AppRoutes /></MemoryRouter>);
+    expect(await screen.findByRole("heading", { level: 1, name: "冠词 Articles" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "一句公式" })).toBeInTheDocument();
+    expect(screen.getAllByRole("navigation", { name: "德语学习笔记目录" })).toHaveLength(2);
+    expect(screen.getAllByRole("link", { name: "1.1 冠词 Articles" })[0]).toHaveAttribute("aria-current", "page");
   });
 
   it("renders a noindex 404 for an unknown route", async () => {

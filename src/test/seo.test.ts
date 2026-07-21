@@ -13,6 +13,9 @@ describe("route metadata", () => {
   it("indexes published notes and noindexes unknown routes", () => {
     expect(getMetadataForPath("/notes").noindex).toBe(false);
     expect(getMetadataForPath("/notes/german").title).toContain("德语学习笔记");
+    expect(getMetadataForPath("/notes/german/articles").title).toContain("冠词 Articles");
+    expect(getMetadataForPath("/notes/german/articles").description).toContain("冠词放在名词前");
+    expect(getMetadataForPath("/notes/german/unknown").noindex).toBe(true);
     expect(getMetadataForPath("/does-not-exist").noindex).toBe(true);
   });
 
