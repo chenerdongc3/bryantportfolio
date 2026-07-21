@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --background: 220 33% 98%;
+    --foreground: 221 39% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 35% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 35% 10%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 221 39% 11%;
+    --secondary: 258 90% 66%;
+    --secondary-foreground: 221 39% 11%;
+    --muted: 220 25% 94%;
+    --muted-foreground: 215 15% 42%;
+    --accent: 48 96% 56%;
+    --accent-foreground: 221 39% 11%;
+    --highlight: 48 96% 56%;
+    --highlight-foreground: 221 39% 11%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 221 39% 11%;
+    --input: 221 25% 75%;
+    --ring: 217 91% 60%;
+    --radius: 0.4rem;
+  }
+
+  .dark {
+    color-scheme: dark;
+    --background: 222 36% 8%;
+    --foreground: 210 25% 94%;
+    --card: 218 27% 10%;
+    --card-foreground: 210 25% 94%;
+    --popover: 218 27% 10%;
+    --popover-foreground: 210 25% 94%;
+    --primary: 217 91% 65%;
+    --primary-foreground: 222 36% 8%;
+    --secondary: 258 83% 67%;
+    --secondary-foreground: 222 36% 8%;
+    --muted: 217 22% 14%;
+    --muted-foreground: 215 14% 66%;
+    --accent: 48 96% 56%;
+    --accent-foreground: 222 36% 8%;
+    --highlight: 48 96% 56%;
+    --highlight-foreground: 222 36% 8%;
+    --destructive: 0 62% 43%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 216 22% 72%;
+    --input: 216 18% 28%;
+    --ring: 217 91% 65%;
+  }
+
+  * { @apply border-border; }
+  html { @apply scroll-smooth; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    min-width: 320px;
+    font-family: Inter, "Noto Sans SC", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { @apply bg-highlight text-highlight-foreground; }
+  :focus-visible { @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background; }
+}
+
+@layer components {
+  .skip-link {
+    @apply fixed left-4 top-3 z-[100] -translate-y-20 border-2 border-foreground bg-highlight px-4 py-2 font-mono text-sm font-bold text-highlight-foreground shadow-[3px_3px_0_hsl(var(--foreground))] transition-transform focus:translate-y-0;
+  }
+  .section-label {
+    @apply inline-flex -rotate-1 border-2 border-foreground bg-highlight px-2.5 py-1 font-display text-base uppercase tracking-[0.12em] text-highlight-foreground shadow-[3px_3px_0_hsl(var(--foreground))];
+  }
+  .display-title {
+    @apply text-balance font-display tracking-[0.015em];
+  }
+  .creative-panel {
+    @apply border-2 border-foreground bg-card shadow-[6px_6px_0_hsl(var(--foreground))];
+  }
+  .creative-link {
+    @apply font-mono text-sm font-bold text-primary underline decoration-2 underline-offset-4 transition hover:text-secondary focus-visible:rounded-sm;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
