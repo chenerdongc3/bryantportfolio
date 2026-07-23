@@ -1,16 +1,18 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { PageContainer } from "@/components/PageContainer";
-import { getNote, getNoteLesson } from "@/content/notes";
 import type { Note } from "@/content/types";
+import { usePortfolioContent } from "@/i18n/usePortfolioContent";
 import { cn } from "@/lib/utils";
 import NotFound from "./NotFound";
 
 function LessonDirectory({ note, activeId }: { note: Note; activeId: string }) {
+  const { language, ui } = usePortfolioContent();
+  const directoryLabel = `${note.title}${language === "zh" ? "" : " "}${ui.noteDirectory}`;
   return (
-    <nav aria-label={`${note.title}目录`}>
+    <nav aria-label={directoryLabel}>
       <Link className="creative-link inline-flex items-center gap-2" to={`/notes/${note.slug}`}>
-        <ArrowLeft className="size-4" aria-hidden="true" /> 返回总目录
+        <ArrowLeft className="size-4" aria-hidden="true" /> {ui.backToDirectory}
       </Link>
       <div className="mt-7 space-y-7">
         {note.outline?.map((group) => (
@@ -40,7 +42,8 @@ function LessonDirectory({ note, activeId }: { note: Note; activeId: string }) {
 }
 
 function LessonDetail({ note, lessonId }: { note: Note; lessonId: string }) {
-  const lesson = getNoteLesson(note.slug, lessonId);
+  const { ui } = usePortfolioContent();
+  const lesson = note.lessons?.find((item) => item.id === lessonId);
   if (!lesson) return <NotFound />;
 
   const lessons = note.lessons ?? [];
@@ -51,8 +54,8 @@ function LessonDetail({ note, lessonId }: { note: Note; lessonId: string }) {
   return (
     <article>
       <PageContainer className="py-10 sm:py-14">
-        <nav className="mb-8 flex flex-wrap gap-2 text-sm text-muted-foreground" aria-label="面包屑">
-          <Link to="/">首页</Link><span aria-hidden="true">/</span><Link to="/notes">笔记</Link><span aria-hidden="true">/</span><Link to={`/notes/${note.slug}`}>{note.title}</Link><span aria-hidden="true">/</span><span aria-current="page">{lesson.title}</span>
+        <nav className="mb-8 flex flex-wrap gap-2 text-sm text-muted-foreground" aria-label={ui.breadcrumbs}>
+          <Link to="/">{ui.nav.home}</Link><span aria-hidden="true">/</span><Link to="/notes">{ui.nav.notes}</Link><span aria-hidden="true">/</span><Link to={`/notes/${note.slug}`}>{note.title}</Link><span aria-hidden="true">/</span><span aria-current="page">{lesson.title}</span>
         </nav>
 
         <div className="lg:grid lg:grid-cols-[18rem_minmax(0,1fr)] lg:gap-12">
@@ -61,7 +64,7 @@ function LessonDetail({ note, lessonId }: { note: Note; lessonId: string }) {
           </aside>
 
           <details className="creative-panel mb-8 p-5 lg:hidden">
-            <summary className="cursor-pointer font-mono text-sm font-bold text-primary">查看学习目录</summary>
+            <summary className="cursor-pointer font-mono text-sm font-bold text-primary">{ui.viewDirectory}</summary>
             <div className="mt-5"><LessonDirectory note={note} activeId={lesson.id} /></div>
           </details>
 
@@ -73,14 +76,14 @@ function LessonDetail({ note, lessonId }: { note: Note; lessonId: string }) {
             </header>
 
             <section className="mt-9" aria-labelledby="lesson-formula">
-              <h2 id="lesson-formula" className="font-display text-3xl tracking-wide">一句公式</h2>
+              <h2 id="lesson-formula" className="font-display text-3xl tracking-wide">{ui.formula}</h2>
               <div className="mt-4 border-2 border-foreground bg-highlight px-5 py-4 font-mono text-base font-bold text-highlight-foreground shadow-[4px_4px_0_hsl(var(--foreground))] sm:text-lg">
                 {lesson.formula}
               </div>
             </section>
 
             <section className="mt-10" aria-labelledby="lesson-points">
-              <h2 id="lesson-points" className="font-display text-3xl tracking-wide">三个要点</h2>
+              <h2 id="lesson-points" className="font-display text-3xl tracking-wide">{ui.keyPoints}</h2>
               <ol className="mt-5 space-y-3">
                 {lesson.points.map((point, index) => (
                   <li className="flex gap-4 border-b border-foreground/20 pb-3 leading-7" key={point}>
@@ -91,7 +94,7 @@ function LessonDetail({ note, lessonId }: { note: Note; lessonId: string }) {
             </section>
 
             <section className="mt-10" aria-labelledby="lesson-examples">
-              <h2 id="lesson-examples" className="font-display text-3xl tracking-wide">最小例句</h2>
+              <h2 id="lesson-examples" className="font-display text-3xl tracking-wide">{ui.examples}</h2>
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
                 {lesson.examples.map((example) => (
                   <figure className="creative-panel p-5" key={example.source}>
@@ -102,12 +105,12 @@ function LessonDetail({ note, lessonId }: { note: Note; lessonId: string }) {
               </div>
             </section>
 
-            <aside className="mt-10 border-l-4 border-primary bg-muted p-5" aria-label="记忆提示">
-              <p className="font-mono text-xs font-bold uppercase tracking-wider text-primary">记忆提示</p>
+            <aside className="mt-10 border-l-4 border-primary bg-muted p-5" aria-label={ui.memoryTip}>
+              <p className="font-mono text-xs font-bold uppercase tracking-wider text-primary">{ui.memoryTip}</p>
               <p className="mt-2 leading-7">{lesson.tip}</p>
             </aside>
 
-            <nav className="mt-12 grid gap-4 border-t-2 border-foreground pt-7 sm:grid-cols-2" aria-label="上一篇和下一篇">
+            <nav className="mt-12 grid gap-4 border-t-2 border-foreground pt-7 sm:grid-cols-2" aria-label={ui.previousAndNext}>
               {previous ? <Link className="creative-link inline-flex items-center gap-2" to={`/notes/${note.slug}/${previous.id}`}><ArrowLeft className="size-4" aria-hidden="true" />{previous.title}</Link> : <span />}
               {next && <Link className="creative-link inline-flex items-center justify-end gap-2 text-right" to={`/notes/${note.slug}/${next.id}`}>{next.title}<ArrowRight className="size-4" aria-hidden="true" /></Link>}
             </nav>
@@ -120,15 +123,16 @@ function LessonDetail({ note, lessonId }: { note: Note; lessonId: string }) {
 
 export default function NoteDetail() {
   const { slug = "", lessonId } = useParams();
-  const note = getNote(slug);
+  const { language, notes, ui } = usePortfolioContent();
+  const note = notes.find((item) => item.slug === slug);
   if (!note) return <NotFound />;
   if (lessonId) return <LessonDetail note={note} lessonId={lessonId} />;
 
   return (
     <article>
       <PageContainer className="py-12 sm:py-16">
-        <nav className="mb-10 flex gap-2 text-sm text-muted-foreground" aria-label="面包屑">
-          <Link to="/">首页</Link><span aria-hidden="true">/</span><Link to="/notes">笔记</Link><span aria-hidden="true">/</span><span aria-current="page">{note.title}</span>
+        <nav className="mb-10 flex gap-2 text-sm text-muted-foreground" aria-label={ui.breadcrumbs}>
+          <Link to="/">{ui.nav.home}</Link><span aria-hidden="true">/</span><Link to="/notes">{ui.nav.notes}</Link><span aria-hidden="true">/</span><span aria-current="page">{note.title}</span>
         </nav>
         <header className="mx-auto max-w-3xl border-b-2 border-foreground pb-10">
           <h1 className="display-title text-5xl font-black sm:text-7xl">{note.title}</h1>
@@ -139,7 +143,7 @@ export default function NoteDetail() {
           </div>
         </header>
         {note.outline && (
-          <nav className="creative-panel mx-auto mt-10 max-w-3xl p-7 sm:p-10" aria-label={`${note.title}目录`}>
+          <nav className="creative-panel mx-auto mt-10 max-w-3xl p-7 sm:p-10" aria-label={`${note.title}${language === "zh" ? "" : " "}${ui.noteDirectory}`}>
             <div className="space-y-12">
               {note.outline.map((group) => (
                 <section key={group.title} aria-labelledby={`outline-${group.title}`}>

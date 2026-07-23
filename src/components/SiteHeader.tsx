@@ -4,15 +4,9 @@ import { Link, NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { usePortfolioContent } from "@/i18n/usePortfolioContent";
+import { LanguageToggle } from "./LanguageToggle";
 import { PageContainer } from "./PageContainer";
-import { ThemeToggle } from "./ThemeToggle";
-
-const navigation = [
-  { label: "首页", href: "/" },
-  { label: "项目", href: "/projects" },
-  { label: "笔记", href: "/notes" },
-  { label: "关于", href: "/about" },
-];
 
 function NavigationLink({ href, label, mobile = false, onNavigate }: { href: string; label: string; mobile?: boolean; onNavigate?: () => void }) {
   return (
@@ -33,6 +27,13 @@ function NavigationLink({ href, label, mobile = false, onNavigate }: { href: str
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const { ui } = usePortfolioContent();
+  const navigation = [
+    { label: ui.nav.home, href: "/" },
+    { label: ui.nav.projects, href: "/projects" },
+    { label: ui.nav.notes, href: "/notes" },
+    { label: ui.nav.about, href: "/about" },
+  ];
 
   return (
     <header className="sticky top-0 z-40 border-b-2 border-foreground bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/85">
@@ -41,21 +42,21 @@ export function SiteHeader() {
           陈扬 <span className="font-mono text-xs font-bold uppercase tracking-wider">/ Bryant</span>
         </Link>
 
-        <nav className="hidden items-center md:flex" aria-label="主导航">
+        <nav className="hidden items-center md:flex" aria-label={ui.mainNavigation}>
           {navigation.map((item) => <NavigationLink key={item.href} {...item} />)}
         </nav>
 
         <div className="flex items-center gap-1">
-          <ThemeToggle />
+          <LanguageToggle />
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden" aria-label="打开导航菜单">
+              <Button variant="ghost" size="icon" className="md:hidden" aria-label={ui.openMenu}>
                 <Menu className="size-5" aria-hidden="true" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[min(22rem,88vw)] border-l-2 border-foreground bg-background shadow-[-8px_0_0_hsl(var(--primary))]">
-              <SheetTitle className="mb-8 font-display text-3xl tracking-wide text-left">NAV / 导航</SheetTitle>
-              <nav className="space-y-1" aria-label="移动端主导航">
+              <SheetTitle className="mb-8 font-display text-3xl tracking-wide text-left">{ui.menuTitle}</SheetTitle>
+              <nav className="space-y-1" aria-label={ui.mobileNavigation}>
                 {navigation.map((item) => (
                   <NavigationLink key={item.href} {...item} mobile onNavigate={() => setOpen(false)} />
                 ))}

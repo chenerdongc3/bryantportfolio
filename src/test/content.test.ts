@@ -4,6 +4,7 @@ import { publishedNotes } from "@/content/notes";
 import { publishedProjects } from "@/content/projects";
 import { getIndexableRoutes, getPublicRoutes } from "@/lib/content/routes";
 import { validateContent } from "@/lib/content/validate";
+import { experiencesEnglish, notesEnglish, projectsEnglish } from "@/i18n/content";
 
 describe("content model", () => {
   it("validates all content and unique slugs", () => {
@@ -30,5 +31,18 @@ describe("content model", () => {
     expect(germanNote?.outline?.flatMap((group) => group.items)).toHaveLength(13);
     expect(germanNote?.lessons).toHaveLength(13);
     expect(getIndexableRoutes()).toEqual(expect.arrayContaining(["/notes", "/notes/german", "/notes/german/articles"]));
+  });
+
+  it("keeps English content aligned with every localized portfolio entry", () => {
+    expect(experiencesEnglish).toHaveLength(experiences.length);
+    expect(projectsEnglish.map((project) => project.slug)).toEqual(
+      publishedProjects.map((project) => project.slug),
+    );
+    expect(notesEnglish.map((note) => note.slug)).toEqual(
+      publishedNotes.map((note) => note.slug),
+    );
+    expect(notesEnglish[0]?.lessons?.map((lesson) => lesson.id)).toEqual(
+      publishedNotes[0]?.lessons?.map((lesson) => lesson.id),
+    );
   });
 });

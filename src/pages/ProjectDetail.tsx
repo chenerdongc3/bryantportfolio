@@ -3,24 +3,25 @@ import { Link, useParams } from "react-router-dom";
 import { PageContainer } from "@/components/PageContainer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { getProject, publishedProjects } from "@/content/projects";
+import { usePortfolioContent } from "@/i18n/usePortfolioContent";
 import NotFound from "./NotFound";
 
 export default function ProjectDetail() {
   const { slug = "" } = useParams();
-  const project = getProject(slug);
+  const { projects, ui } = usePortfolioContent();
+  const project = projects.find((item) => item.slug === slug);
   if (!project) return <NotFound />;
 
-  const index = publishedProjects.findIndex((item) => item.slug === project.slug);
-  const previous = publishedProjects[index - 1];
-  const next = publishedProjects[index + 1];
+  const index = projects.findIndex((item) => item.slug === project.slug);
+  const previous = projects[index - 1];
+  const next = projects[index + 1];
 
   return (
     <article>
       <PageContainer className="py-12 sm:py-16">
-        <nav className="mb-10 flex flex-wrap items-center gap-2 font-mono text-xs font-bold text-muted-foreground" aria-label="面包屑">
-          <Link className="hover:text-primary hover:underline" to="/">首页</Link><span aria-hidden="true">/</span>
-          <Link className="hover:text-primary hover:underline" to="/projects">项目</Link><span aria-hidden="true">/</span>
+        <nav className="mb-10 flex flex-wrap items-center gap-2 font-mono text-xs font-bold text-muted-foreground" aria-label={ui.breadcrumbs}>
+          <Link className="hover:text-primary hover:underline" to="/">{ui.nav.home}</Link><span aria-hidden="true">/</span>
+          <Link className="hover:text-primary hover:underline" to="/projects">{ui.nav.projects}</Link><span aria-hidden="true">/</span>
           <span className="text-foreground" aria-current="page">{project.title}</span>
         </nav>
         <header className="max-w-5xl border-b-2 border-foreground pb-12">
@@ -29,8 +30,8 @@ export default function ProjectDetail() {
           <p className="mt-6 max-w-3xl text-pretty text-lg leading-8 text-muted-foreground sm:text-xl">{project.summary}</p>
           <div className="mt-7 flex flex-wrap gap-2">{project.tags.map((tag) => <Badge variant="secondary" key={tag}>{tag}</Badge>)}</div>
           {(project.demoUrl || project.repositoryUrl) && <div className="mt-8 flex flex-wrap gap-3">
-            {project.demoUrl && <Button asChild><a href={project.demoUrl} target="_blank" rel="noreferrer">在线演示 <ExternalLink className="size-4" /></a></Button>}
-            {project.repositoryUrl && <Button asChild variant="outline"><a href={project.repositoryUrl} target="_blank" rel="noreferrer">代码仓库 <ExternalLink className="size-4" /></a></Button>}
+            {project.demoUrl && <Button asChild><a href={project.demoUrl} target="_blank" rel="noreferrer">{ui.liveDemo} <ExternalLink className="size-4" /></a></Button>}
+            {project.repositoryUrl && <Button asChild variant="outline"><a href={project.repositoryUrl} target="_blank" rel="noreferrer">{ui.repository} <ExternalLink className="size-4" /></a></Button>}
           </div>}
         </header>
 
@@ -44,9 +45,9 @@ export default function ProjectDetail() {
           ))}
         </div>
 
-        <nav className="mx-auto mt-16 grid max-w-3xl gap-5 border-t-2 border-foreground pt-8 sm:grid-cols-2" aria-label="项目翻页">
-          {previous ? <Link className="creative-panel p-4 transition-transform hover:-translate-y-1" to={`/projects/${previous.slug}`}><span className="flex items-center gap-1 font-mono text-xs font-bold text-primary"><ArrowLeft className="size-3" /> 上一个项目</span><strong className="mt-2 block">{previous.title}</strong></Link> : <span />}
-          {next && <Link className="creative-panel p-4 text-right transition-transform hover:-translate-y-1" to={`/projects/${next.slug}`}><span className="flex items-center justify-end gap-1 font-mono text-xs font-bold text-primary">下一个项目 <ArrowRight className="size-3" /></span><strong className="mt-2 block">{next.title}</strong></Link>}
+        <nav className="mx-auto mt-16 grid max-w-3xl gap-5 border-t-2 border-foreground pt-8 sm:grid-cols-2" aria-label={ui.projectPagination}>
+          {previous ? <Link className="creative-panel p-4 transition-transform hover:-translate-y-1" to={`/projects/${previous.slug}`}><span className="flex items-center gap-1 font-mono text-xs font-bold text-primary"><ArrowLeft className="size-3" /> {ui.previousProject}</span><strong className="mt-2 block">{previous.title}</strong></Link> : <span />}
+          {next && <Link className="creative-panel p-4 text-right transition-transform hover:-translate-y-1" to={`/projects/${next.slug}`}><span className="flex items-center justify-end gap-1 font-mono text-xs font-bold text-primary">{ui.nextProject} <ArrowRight className="size-3" /></span><strong className="mt-2 block">{next.title}</strong></Link>}
         </nav>
       </PageContainer>
     </article>

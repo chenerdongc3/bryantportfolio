@@ -29,31 +29,6 @@
     --radius: 0.4rem;
   }
 
-  .dark {
-    color-scheme: dark;
-    --background: 222 36% 8%;
-    --foreground: 210 25% 94%;
-    --card: 218 27% 10%;
-    --card-foreground: 210 25% 94%;
-    --popover: 218 27% 10%;
-    --popover-foreground: 210 25% 94%;
-    --primary: 217 91% 65%;
-    --primary-foreground: 222 36% 8%;
-    --secondary: 258 83% 67%;
-    --secondary-foreground: 222 36% 8%;
-    --muted: 217 22% 14%;
-    --muted-foreground: 215 14% 66%;
-    --accent: 48 96% 56%;
-    --accent-foreground: 222 36% 8%;
-    --highlight: 48 96% 56%;
-    --highlight-foreground: 222 36% 8%;
-    --destructive: 0 62% 43%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 216 22% 72%;
-    --input: 216 18% 28%;
-    --ring: 217 91% 65%;
-  }
-
   * { @apply border-border; }
   html { @apply scroll-smooth; }
   body {

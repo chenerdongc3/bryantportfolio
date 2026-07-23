@@ -21,13 +21,27 @@ test("mobile sheet closes after navigation", async ({ page }) => {
   await expect(page.getByRole("dialog")).toBeHidden();
 });
 
-test("theme choice persists", async ({ page }) => {
-  await page.emulateMedia({ colorScheme: "light" });
+test("language choice persists and theme controls are absent", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "切换到暗色主题" }).click();
-  await expect(page.locator("html")).toHaveClass(/dark/);
+  await expect(page.getByRole("button", { name: /切换到.*主题/ })).toHaveCount(0);
+  await page.getByRole("button", { name: "切换到 English" }).click();
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Find the problem in data");
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await page.reload();
-  await expect(page.locator("html")).toHaveClass(/dark/);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Find the problem in data");
+  await expect(page.getByRole("navigation", { name: "Main navigation" }).getByRole("link", { name: "Projects" })).toBeVisible();
+  await page.getByRole("button", { name: "切换到中文" }).click();
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("用数据发现问题");
+});
+
+test("English remains consistent across public pages", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "切换到 English" }).click();
+  await page.getByRole("navigation", { name: "Main navigation" }).getByRole("link", { name: "Projects" }).click();
+  await expect(page.getByRole("heading", { level: 1, name: /Project work/ })).toBeVisible();
+  await page.getByRole("link", { name: /Travel Assistant Agent/ }).click();
+  await expect(page.getByRole("heading", { level: 1, name: "Travel Assistant Agent" })).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "Breadcrumbs" })).toContainText("Home");
 });
 
 test("project deep links contain prerendered content", async ({ page }) => {

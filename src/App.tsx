@@ -2,8 +2,9 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { PageSeo } from "@/components/PageSeo";
 import { SiteLayout } from "@/components/SiteLayout";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import { routerBasename } from "@/config/site";
+import { LanguageProvider } from "@/i18n/LanguageProvider";
+import { ui } from "@/i18n/ui";
 
 const Home = lazy(() => import("@/pages/Home"));
 const Projects = lazy(() => import("@/pages/Projects"));
@@ -15,9 +16,9 @@ const NotFound = lazy(() => import("@/pages/NotFound"));
 
 export function AppRoutes() {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+    <LanguageProvider>
       <PageSeo />
-      <Suspense fallback={<div className="min-h-[60vh]" aria-label="页面加载中" />}>
+      <Suspense fallback={<div className="min-h-[60vh]" aria-label={ui.zh.loading} />}>
         <Routes>
           <Route element={<SiteLayout />}>
             <Route path="/" element={<Home />} />
@@ -32,7 +33,7 @@ export function AppRoutes() {
           </Route>
         </Routes>
       </Suspense>
-    </ThemeProvider>
+    </LanguageProvider>
   );
 }
 

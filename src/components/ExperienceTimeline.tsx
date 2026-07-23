@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import type { Experience } from "@/content/types";
 import { cn } from "@/lib/utils";
+import { usePortfolioContent } from "@/i18n/usePortfolioContent";
 
 type ExperienceTimelineProps = {
   experiences: Experience[];
@@ -15,9 +16,11 @@ const showcaseColors = [
 ] as const;
 
 export function ExperienceTimeline({ experiences, variant = "detail" }: ExperienceTimelineProps) {
+  const { language } = usePortfolioContent();
+  const timelineLabel = language === "zh" ? "工作与实习经历" : "Work and internship experience";
   if (variant === "showcase") {
     return (
-      <ol className="grid gap-5" aria-label="工作与实习经历">
+      <ol className="grid gap-5" aria-label={timelineLabel}>
         {experiences.map((experience, index) => (
           <li key={`${experience.organization}-${experience.role}`}>
             <article
@@ -35,7 +38,7 @@ export function ExperienceTimeline({ experiences, variant = "detail" }: Experien
 
               <div>
                 <p className="font-mono text-xs font-bold uppercase tracking-[0.16em] opacity-70">
-                  {experience.period ?? "Internship"}
+                  {experience.period ?? (language === "zh" ? "实习" : "Internship")}
                 </p>
                 <h3 className="display-title mt-2 text-3xl font-black leading-tight sm:text-4xl">
                   {experience.organization}
@@ -66,7 +69,7 @@ export function ExperienceTimeline({ experiences, variant = "detail" }: Experien
   }
 
   return (
-    <ol className="space-y-8 border-l-2 border-foreground pl-7" aria-label="工作与实习经历">
+    <ol className="space-y-8 border-l-2 border-foreground pl-7" aria-label={timelineLabel}>
       {experiences.map((experience) => (
         <li key={`${experience.organization}-${experience.role}`}>
           <article className="creative-panel relative p-6">

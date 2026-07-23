@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import { AppRoutes } from "@/App";
@@ -39,5 +39,14 @@ describe("public routes", () => {
   it("renders a noindex 404 for an unknown route", async () => {
     render(<MemoryRouter initialEntries={["/missing"]}><AppRoutes /></MemoryRouter>);
     expect(await screen.findByRole("heading", { level: 1, name: "页面没有找到" })).toBeInTheDocument();
+  });
+
+  it("switches all visible portfolio copy to English", async () => {
+    render(<MemoryRouter initialEntries={["/projects"]}><AppRoutes /></MemoryRouter>);
+    const toggle = await screen.findByRole("button", { name: "切换到 English" });
+    fireEvent.click(toggle);
+    expect(await screen.findByRole("heading", { level: 1, name: /Project work/ })).toBeInTheDocument();
+    expect(screen.getByRole("navigation", { name: "Main navigation" })).toHaveTextContent("Home");
+    expect(screen.queryByRole("button", { name: /主题/ })).not.toBeInTheDocument();
   });
 });
