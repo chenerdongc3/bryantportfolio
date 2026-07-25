@@ -1,4 +1,4 @@
-import { ArrowDownRight, ArrowRight, Mail } from "lucide-react";
+import { ArrowDownRight, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ExperienceTimeline } from "@/components/ExperienceTimeline";
 import { PageContainer } from "@/components/PageContainer";
@@ -25,7 +25,6 @@ export default function Home() {
             <div className="mt-9 flex flex-wrap gap-3">
               <Button asChild size="lg"><a href="#experience">{content.viewExperience} <ArrowDownRight className="size-4" /></a></Button>
               <Button asChild size="lg" variant="outline"><Link to="/projects">{content.viewProjects} <ArrowRight className="size-4" /></Link></Button>
-              <Button asChild size="lg" variant="ghost"><a href={`mailto:${profile.email}`}><Mail className="size-4" />{content.contact}</a></Button>
             </div>
           </div>
           <div className="relative mx-auto w-full max-w-sm lg:mx-0">

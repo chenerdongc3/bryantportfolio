@@ -17,10 +17,11 @@ describe("content model", () => {
     publishedNotes.forEach((note) => expect(routes).toContain(`/notes/${note.slug}`));
   });
 
-  it("includes the resume experience and project content without placeholders", () => {
+  it("includes the approved branded experience and project content without placeholders", () => {
     expect(experiences.map((experience) => experience.organization)).toEqual(
       expect.arrayContaining(["哈啰", "KuCoin"]),
     );
+    expect(experiences.filter((experience) => experience.logo)).toHaveLength(2);
     expect(publishedProjects[0]?.slug).toBe("adhd-companion-alarm");
     expect(JSON.stringify({ experiences, publishedProjects })).not.toMatch(/待补充|X%|X 人日|X 小时|X 天/);
   });

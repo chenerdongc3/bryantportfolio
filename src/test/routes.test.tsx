@@ -7,7 +7,10 @@ describe("public routes", () => {
   it("leads with experience and keeps selected project proof on the homepage", async () => {
     render(<MemoryRouter initialEntries={["/"]}><AppRoutes /></MemoryRouter>);
     expect(await screen.findByRole("heading", { level: 2, name: /先看我解决过/ })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 3, name: "Noumi" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: "企业级 AI 应用团队" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: "哈啰" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "哈啰 Logo" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "KuCoin Logo" })).toBeInTheDocument();
     expect(await screen.findByRole("heading", { level: 2, name: "ADHD 情感陪伴闹钟" })).toBeInTheDocument();
   });
 

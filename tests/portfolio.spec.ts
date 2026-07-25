@@ -4,7 +4,10 @@ test("desktop navigation discovers the public pages", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("用数据发现问题");
   await expect(page.getByRole("heading", { level: 2, name: /先看我解决过/ })).toBeVisible();
-  await expect(page.getByRole("heading", { level: 3, name: "Noumi" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "企业级 AI 应用团队" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "哈啰" })).toBeVisible();
+  await expect(page.getByRole("img", { name: "哈啰 Logo" })).toBeVisible();
+  await expect(page.getByRole("img", { name: "KuCoin Logo" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "ADHD 情感陪伴闹钟" })).toBeVisible();
   await page.getByRole("navigation", { name: "主导航" }).getByRole("link", { name: "项目" }).click();
   await expect(page).toHaveURL(/\/projects$/);

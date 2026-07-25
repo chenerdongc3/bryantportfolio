@@ -2,7 +2,7 @@ import { notesEnglish, profileEnglish, projectsEnglish } from "./content";
 import type { Language } from "./LanguageContext";
 import type { PageMetadata } from "@/lib/seo";
 
-const siteName = "Bryant Chen";
+const siteName = "Bryant";
 
 export function localizeMetadata(metadata: PageMetadata, pathname: string, language: Language): PageMetadata {
   if (language === "zh") return metadata;
@@ -10,7 +10,7 @@ export function localizeMetadata(metadata: PageMetadata, pathname: string, langu
   if (pathname === "/") {
     return {
       ...metadata,
-      title: "Bryant Chen | Growth, Frontend & Agent Engineering",
+      title: "Bryant | Full-stack Development & AI Product Engineering",
       description: profileEnglish.bio,
     };
   }
@@ -18,7 +18,7 @@ export function localizeMetadata(metadata: PageMetadata, pathname: string, langu
     return {
       ...metadata,
       title: `Projects | ${siteName}`,
-      description: "Real product MVP, AI conversation, agent orchestration, and frontend engineering work by Bryant Chen.",
+      description: "Real product MVP, AI conversation, agent orchestration, and frontend engineering work by Bryant.",
     };
   }
   if (pathname.startsWith("/projects/")) {
@@ -29,7 +29,7 @@ export function localizeMetadata(metadata: PageMetadata, pathname: string, langu
     return {
       ...metadata,
       title: `About | ${siteName}`,
-      description: "Bryant Chen's experience, focus areas, and contact information across growth, frontend, and agent engineering.",
+      description: "Bryant's experience and focus areas across growth, frontend, and AI product engineering.",
     };
   }
   if (pathname === "/notes") {

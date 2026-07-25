@@ -1,11 +1,10 @@
 export const siteConfig = {
-  name: "陈扬",
-  title: "陈扬｜用户增长、前端与 Agent 工程作品集",
+  name: "Bryant",
+  title: "Bryant｜全栈开发与 AI 产品工程作品集",
   description:
-    "陈扬的个人作品集，记录用户增长、Web3 前端、Agent 工程与产品实践。",
+    "Bryant 的作品集，记录 AI 应用、自动化工作流、现代 Web 产品与用户增长实践。",
   locale: "zh-CN",
   url: (import.meta.env.VITE_SITE_URL as string | undefined)?.replace(/\/$/, ""),
-  email: "2607653809@qq.com",
 } as const;
 
 export const routerBasename = import.meta.env.BASE_URL;

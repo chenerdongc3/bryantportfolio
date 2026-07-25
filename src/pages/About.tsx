@@ -1,8 +1,6 @@
-import { ExternalLink, Mail, MapPin } from "lucide-react";
 import { ExperienceTimeline } from "@/components/ExperienceTimeline";
 import { PageContainer } from "@/components/PageContainer";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { usePortfolioContent } from "@/i18n/usePortfolioContent";
 
@@ -27,8 +25,7 @@ export default function About() {
 
         <aside className="space-y-6 lg:sticky lg:top-28 lg:self-start">
           <section className="creative-panel bg-highlight p-5 text-highlight-foreground" aria-labelledby="skills-heading"><h2 id="skills-heading" className="font-display text-2xl tracking-wide">{content.skills}</h2><div className="mt-4 flex flex-wrap gap-2">{profile.skills.map((skill) => <Badge variant="outline" className="bg-background" key={skill}>{skill}</Badge>)}</div></section>
-          <section className="creative-panel p-5" aria-labelledby="details-heading"><h2 id="details-heading" className="font-display text-2xl tracking-wide">{content.details}</h2><dl className="mt-4 space-y-4 text-sm"><div><dt className="font-mono text-xs font-bold uppercase text-muted-foreground">{content.education}</dt><dd className="mt-1">{profile.education} · {profile.major}</dd></div><div><dt className="font-mono text-xs font-bold uppercase text-muted-foreground">{content.direction}</dt><dd className="mt-1">{profile.role}</dd></div><div className="flex items-center gap-2"><MapPin className="size-4 text-primary" aria-hidden="true" /><span>{profile.location}</span></div></dl></section>
-          <section className="creative-panel bg-primary p-5 text-primary-foreground" aria-labelledby="contact-heading"><h2 id="contact-heading" className="font-display text-2xl tracking-wide">{content.contact}</h2><div className="mt-4 flex flex-col gap-3"><Button asChild variant="outline"><a href={`mailto:${profile.email}`}><Mail className="size-4" />{profile.email}</a></Button><Button asChild variant="outline"><a href={profile.resumeUrl} target="_blank" rel="noreferrer">{content.viewResume} <ExternalLink className="size-4" /></a></Button></div></section>
+          <section className="creative-panel p-5" aria-labelledby="details-heading"><h2 id="details-heading" className="font-display text-2xl tracking-wide">{content.details}</h2><dl className="mt-4 space-y-4 text-sm"><div><dt className="font-mono text-xs font-bold uppercase text-muted-foreground">{content.background}</dt><dd className="mt-1">{profile.background}</dd></div><div><dt className="font-mono text-xs font-bold uppercase text-muted-foreground">{content.direction}</dt><dd className="mt-1">{profile.role}</dd></div></dl></section>
         </aside>
       </div>
     </PageContainer>

@@ -21,6 +21,10 @@ export type Experience = {
   organization: string;
   role: string;
   period?: string;
+  logo?: {
+    src: string;
+    alt: string;
+  };
   summary: string;
   tags: string[];
   highlights: string[];

@@ -1,4 +1,4 @@
-# 陈扬的个人作品集
+# Bryant Portfolio
 
 基于 Vite、React、TypeScript、React Router 和 Tailwind CSS 构建的静态作品集。内容来自仓库内统一的类型化数据源，构建时为公开路由生成完整 HTML。
 
@@ -37,8 +37,11 @@ https://chenerdongc3.github.io/bryantportfolio/
 - 经历：`src/content/experience.ts`
 - 项目：`src/content/projects.ts`
 - 笔记入口：`src/content/notes/index.ts`
+- 公开内容隐私审计：`docs/public-content-privacy-audit.md`
 
 项目和笔记 slug、必填字段、日期、链接和封面 alt 会在构建期校验。没有已发布笔记时，Notes 页面保持真实空状态并设置 `noindex`。
+
+公开内容统一使用 Bryant 品牌身份。除经本人明确确认公开的哈啰、KuCoin 品牌经历与签名头像外，经历仅保留行业、职责、技术能力与结果，不应加入真实姓名、其他雇主/客户名称、私人联系方式、学校、详细位置或内部系统名称。
 
 ## 验证
 

@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { withBasePath } from "@/config/site";
 import type { Experience } from "@/content/types";
 import { cn } from "@/lib/utils";
 import { usePortfolioContent } from "@/i18n/usePortfolioContent";
@@ -40,9 +41,16 @@ export function ExperienceTimeline({ experiences, variant = "detail" }: Experien
                 <p className="font-mono text-xs font-bold uppercase tracking-[0.16em] opacity-70">
                   {experience.period ?? (language === "zh" ? "实习" : "Internship")}
                 </p>
-                <h3 className="display-title mt-2 text-3xl font-black leading-tight sm:text-4xl">
-                  {experience.organization}
-                </h3>
+                <div className="mt-2 flex flex-wrap items-center gap-3">
+                  <h3 className="display-title text-3xl font-black leading-tight sm:text-4xl">
+                    {experience.organization}
+                  </h3>
+                  {experience.logo && (
+                    <span className="inline-flex h-9 items-center rounded-sm border-2 border-foreground bg-foreground px-2.5 shadow-[2px_2px_0_hsl(var(--background))]">
+                      <img className="max-h-5 w-auto max-w-24 object-contain" src={withBasePath(experience.logo.src)} alt={experience.logo.alt} />
+                    </span>
+                  )}
+                </div>
                 <p className="mt-2 text-base font-bold">{experience.role}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {experience.tags.slice(0, 4).map((tag) => (
@@ -75,7 +83,14 @@ export function ExperienceTimeline({ experiences, variant = "detail" }: Experien
           <article className="creative-panel relative p-6">
             <span className="absolute -left-[2.3rem] top-7 size-4 rotate-45 border-2 border-foreground bg-primary" aria-hidden="true" />
             {experience.period && <time className="font-mono text-xs font-bold uppercase tracking-wide text-primary">{experience.period}</time>}
-            <h3 className={cn("text-xl font-bold", experience.period && "mt-2")}>{experience.organization} · {experience.role}</h3>
+            <div className={cn("flex flex-wrap items-center gap-3", experience.period && "mt-2")}>
+              <h3 className="text-xl font-bold">{experience.organization} · {experience.role}</h3>
+              {experience.logo && (
+                <span className="inline-flex h-8 items-center rounded-sm border-2 border-foreground bg-foreground px-2">
+                  <img className="max-h-4 w-auto max-w-20 object-contain" src={withBasePath(experience.logo.src)} alt={experience.logo.alt} />
+                </span>
+              )}
+            </div>
             <p className="mt-4 leading-7 text-muted-foreground">{experience.summary}</p>
             <div className="mt-4 flex flex-wrap gap-2">
               {experience.tags.map((tag) => <Badge key={tag} variant="secondary">{tag}</Badge>)}

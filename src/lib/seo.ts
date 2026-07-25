@@ -20,9 +20,8 @@ function personJsonLd() {
     ...(personId && { "@id": personId }),
     name: profile.name,
     alternateName: profile.englishName,
-    email: `mailto:${profile.email}`,
-    address: { "@type": "PostalAddress", addressLocality: profile.location },
-    alumniOf: { "@type": "CollegeOrUniversity", name: "西南交通大学" },
+    jobTitle: profile.role,
+    description: profile.bio,
   };
 }
 
@@ -48,13 +47,13 @@ export function getMetadataForPath(pathname: string): PageMetadata {
   if (pathname === "/projects") {
     return {
       title: `项目｜${siteConfig.name}`,
-      description: "陈扬在产品 MVP、AI 对话、Agent 编排与前端工程方向的真实项目实践。",
+      description: "Bryant 在产品 MVP、AI 对话、Agent 编排与前端工程方向的真实项目实践。",
       pathname,
       jsonLd: [{
         "@context": "https://schema.org",
         "@type": "CollectionPage",
         name: "项目",
-        description: "陈扬在产品 MVP、AI 对话、Agent 编排与前端工程方向的真实项目实践。",
+        description: "Bryant 在产品 MVP、AI 对话、Agent 编排与前端工程方向的真实项目实践。",
         ...(absoluteUrl(pathname) && { url: absoluteUrl(pathname) }),
         mainEntity: {
           "@type": "ItemList",
@@ -92,7 +91,7 @@ export function getMetadataForPath(pathname: string): PageMetadata {
   if (pathname === "/about") {
     return {
       title: `关于｜${siteConfig.name}`,
-      description: "了解陈扬在用户增长、Web3 前端与 Agent 工程方向的实习经历、技能和联系方式。",
+      description: "了解 Bryant 在用户增长、现代 Web 与 AI 产品工程方向的实践经历和技能。",
       pathname,
       jsonLd: [{
         "@context": "https://schema.org",
@@ -107,7 +106,7 @@ export function getMetadataForPath(pathname: string): PageMetadata {
   if (pathname === "/notes") {
     return {
       title: `笔记｜${siteConfig.name}`,
-      description: publishedNotes.length ? "陈扬关于语言、Agent、前端工程与人机交互的学习笔记。" : "学习笔记正在整理中。",
+      description: publishedNotes.length ? "Bryant 关于语言、Agent、前端工程与人机交互的学习笔记。" : "学习笔记正在整理中。",
       pathname,
       noindex: publishedNotes.length === 0,
       jsonLd: publishedNotes.length ? [{ "@context": "https://schema.org", "@type": "CollectionPage", name: "笔记", ...(absoluteUrl(pathname) && { url: absoluteUrl(pathname) }) }] : [],
@@ -168,7 +167,7 @@ export function applyMetadata(metadata: PageMetadata) {
   const ogImage = absoluteUrl("/og-experience.png");
   if (ogImage) {
     upsertMeta('meta[property="og:image"]', { property: "og:image", content: ogImage });
-    upsertMeta('meta[property="og:image:alt"]', { property: "og:image:alt", content: "陈扬的增长、前端与 Agent 工程经历作品集" });
+    upsertMeta('meta[property="og:image:alt"]', { property: "og:image:alt", content: "Bryant 的全栈开发与 AI 产品工程作品集" });
     upsertMeta('meta[name="twitter:image"]', { name: "twitter:image", content: ogImage });
   }
 

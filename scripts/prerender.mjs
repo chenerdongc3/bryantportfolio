@@ -22,10 +22,10 @@ function renderHead(metadata) {
     `<meta name="twitter:card" content="summary_large_image">`,
   ];
   if (canonical) tags.push(`<link rel="canonical" href="${escapeHtml(canonical)}">`, `<meta property="og:url" content="${escapeHtml(canonical)}">`);
-  if (siteUrl && serverEntry.getPublishedNotes().length) tags.push(`<link rel="alternate" type="application/rss+xml" title="陈扬的学习笔记" href="${escapeHtml(absolute("/feed.xml"))}">`);
+  if (siteUrl && serverEntry.getPublishedNotes().length) tags.push(`<link rel="alternate" type="application/rss+xml" title="Bryant 的学习笔记" href="${escapeHtml(absolute("/feed.xml"))}">`);
   if (siteUrl && existsSync(join(root, "dist/og-experience.png"))) {
     const ogImage = absolute("/og-experience.png");
-    tags.push(`<meta property="og:image" content="${escapeHtml(ogImage)}">`, `<meta property="og:image:alt" content="陈扬的增长、前端与 Agent 工程经历作品集">`, `<meta name="twitter:image" content="${escapeHtml(ogImage)}">`);
+    tags.push(`<meta property="og:image" content="${escapeHtml(ogImage)}">`, `<meta property="og:image:alt" content="Bryant 的全栈开发与 AI 产品工程作品集">`, `<meta name="twitter:image" content="${escapeHtml(ogImage)}">`);
   }
   metadata.jsonLd.forEach((value) => tags.push(`<script type="application/ld+json" data-site-jsonld>${JSON.stringify(value).replace(/</g, "\\u003c")}</script>`));
   return tags.join("\n    ");
@@ -51,7 +51,7 @@ if (siteUrl) {
   if (notes.length) {
     const escapeXml = (value) => escapeHtml(String(value)).replace(/'/g, "&apos;");
     const items = notes.map((note) => `    <item>\n      <title>${escapeXml(note.title)}</title>\n      <link>${escapeXml(absolute(`/notes/${note.slug}`))}</link>\n      <guid isPermaLink="true">${escapeXml(absolute(`/notes/${note.slug}`))}</guid>\n      <description>${escapeXml(note.description)}</description>\n      <pubDate>${new Date(note.publishedAt).toUTCString()}</pubDate>\n${note.tags.map((tag) => `      <category>${escapeXml(tag)}</category>`).join("\n")}\n    </item>`).join("\n");
-    writeFileSync(join(root, "dist/feed.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n  <channel>\n    <title>陈扬的学习笔记</title>\n    <link>${escapeXml(absolute("/notes"))}</link>\n    <description>关于语言、Agent、前端工程与人机交互的学习笔记。</description>\n    <language>zh-CN</language>\n${items}\n  </channel>\n</rss>\n`);
+    writeFileSync(join(root, "dist/feed.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n  <channel>\n    <title>Bryant 的学习笔记</title>\n    <link>${escapeXml(absolute("/notes"))}</link>\n    <description>关于语言、Agent、前端工程与人机交互的学习笔记。</description>\n    <language>zh-CN</language>\n${items}\n  </channel>\n</rss>\n`);
   }
 } else {
   writeFileSync(join(root, "dist/robots.txt"), "User-agent: *\nAllow: /\n");

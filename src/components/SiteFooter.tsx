@@ -14,8 +14,6 @@ export function SiteFooter() {
           <Link className="underline decoration-2 underline-offset-4 hover:text-highlight" to="/projects">{ui.nav.projects}</Link>
           <Link className="underline decoration-2 underline-offset-4 hover:text-highlight" to="/notes">{ui.nav.notes}</Link>
           <Link className="underline decoration-2 underline-offset-4 hover:text-highlight" to="/about">{ui.nav.about}</Link>
-          <a className="underline decoration-2 underline-offset-4 hover:text-highlight" href={`mailto:${profile.email}`}>{ui.email}</a>
-          <a className="underline decoration-2 underline-offset-4 hover:text-highlight" href={profile.resumeUrl} target="_blank" rel="noreferrer">{ui.resume}</a>
           {publishedNotes.length > 0 && <a className="underline decoration-2 underline-offset-4 hover:text-highlight" href={withBasePath("/feed.xml")}>RSS</a>}
         </nav>
       </PageContainer>
