@@ -18,7 +18,7 @@ export function AppRoutes() {
   return (
     <LanguageProvider>
       <PageSeo />
-      <Suspense fallback={<div className="min-h-[60vh]" aria-label={ui.zh.loading} />}>
+      <Suspense fallback={<div className="min-h-[60vh]" aria-label={ui.en.loading} />}>
         <Routes>
           <Route element={<SiteLayout />}>
             <Route path="/" element={<Home />} />

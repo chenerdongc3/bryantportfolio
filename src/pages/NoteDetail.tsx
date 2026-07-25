@@ -54,16 +54,16 @@ function LessonDetail({ note, lessonId }: { note: Note; lessonId: string }) {
   return (
     <article>
       <PageContainer className="py-10 sm:py-14">
-        <nav className="mb-8 flex flex-wrap gap-2 text-sm text-muted-foreground" aria-label={ui.breadcrumbs}>
+        <nav className="mb-8 flex min-w-0 flex-wrap gap-2 break-words text-sm text-muted-foreground" aria-label={ui.breadcrumbs}>
           <Link to="/">{ui.nav.home}</Link><span aria-hidden="true">/</span><Link to="/notes">{ui.nav.notes}</Link><span aria-hidden="true">/</span><Link to={`/notes/${note.slug}`}>{note.title}</Link><span aria-hidden="true">/</span><span aria-current="page">{lesson.title}</span>
         </nav>
 
-        <div className="lg:grid lg:grid-cols-[18rem_minmax(0,1fr)] lg:gap-12">
-          <aside className="creative-panel mb-8 hidden max-h-[calc(100vh-8rem)] self-start overflow-y-auto p-6 lg:sticky lg:top-28 lg:block">
+        <div className="xl:grid xl:grid-cols-[18rem_minmax(0,1fr)] xl:gap-12">
+          <aside className="creative-panel mb-8 hidden max-h-[calc(100vh-8rem)] self-start overflow-y-auto p-6 xl:sticky xl:top-28 xl:block">
             <LessonDirectory note={note} activeId={lesson.id} />
           </aside>
 
-          <details className="creative-panel mb-8 p-5 lg:hidden">
+          <details className="creative-panel mb-8 p-5 xl:hidden">
             <summary className="cursor-pointer font-mono text-sm font-bold text-primary">{ui.viewDirectory}</summary>
             <div className="mt-5"><LessonDirectory note={note} activeId={lesson.id} /></div>
           </details>
@@ -71,13 +71,13 @@ function LessonDetail({ note, lessonId }: { note: Note; lessonId: string }) {
           <div className="min-w-0 max-w-3xl">
             <header className="border-b-2 border-foreground pb-8">
               <p className="section-label">{lesson.eyebrow}</p>
-              <h1 className="display-title mt-6 text-5xl font-black sm:text-7xl">{lesson.title}</h1>
+              <h1 className="display-title mt-6 text-[2.75rem] font-black sm:text-7xl">{lesson.title}</h1>
               <p className="mt-5 text-lg leading-8 text-muted-foreground">{lesson.summary}</p>
             </header>
 
             <section className="mt-9" aria-labelledby="lesson-formula">
               <h2 id="lesson-formula" className="font-display text-3xl tracking-wide">{ui.formula}</h2>
-              <div className="mt-4 border-2 border-foreground bg-highlight px-5 py-4 font-mono text-base font-bold text-highlight-foreground shadow-[4px_4px_0_hsl(var(--foreground))] sm:text-lg">
+              <div className="mt-4 break-words border-2 border-foreground bg-highlight px-4 py-4 font-mono text-base font-bold text-highlight-foreground shadow-[4px_4px_0_hsl(var(--foreground))] [overflow-wrap:anywhere] sm:px-5 sm:text-lg">
                 {lesson.formula}
               </div>
             </section>
@@ -111,8 +111,8 @@ function LessonDetail({ note, lessonId }: { note: Note; lessonId: string }) {
             </aside>
 
             <nav className="mt-12 grid gap-4 border-t-2 border-foreground pt-7 sm:grid-cols-2" aria-label={ui.previousAndNext}>
-              {previous ? <Link className="creative-link inline-flex items-center gap-2" to={`/notes/${note.slug}/${previous.id}`}><ArrowLeft className="size-4" aria-hidden="true" />{previous.title}</Link> : <span />}
-              {next && <Link className="creative-link inline-flex items-center justify-end gap-2 text-right" to={`/notes/${note.slug}/${next.id}`}>{next.title}<ArrowRight className="size-4" aria-hidden="true" /></Link>}
+              {previous && <Link className="creative-link inline-flex min-w-0 items-center gap-2 break-words" to={`/notes/${note.slug}/${previous.id}`}><ArrowLeft className="size-4 shrink-0" aria-hidden="true" />{previous.title}</Link>}
+              {next && <Link className="creative-link inline-flex min-w-0 items-center justify-end gap-2 break-words text-right sm:col-start-2" to={`/notes/${note.slug}/${next.id}`}>{next.title}<ArrowRight className="size-4 shrink-0" aria-hidden="true" /></Link>}
             </nav>
           </div>
         </div>
@@ -131,11 +131,11 @@ export default function NoteDetail() {
   return (
     <article>
       <PageContainer className="py-12 sm:py-16">
-        <nav className="mb-10 flex gap-2 text-sm text-muted-foreground" aria-label={ui.breadcrumbs}>
+        <nav className="mb-10 flex min-w-0 flex-wrap gap-2 break-words text-sm text-muted-foreground" aria-label={ui.breadcrumbs}>
           <Link to="/">{ui.nav.home}</Link><span aria-hidden="true">/</span><Link to="/notes">{ui.nav.notes}</Link><span aria-hidden="true">/</span><span aria-current="page">{note.title}</span>
         </nav>
         <header className="mx-auto max-w-3xl border-b-2 border-foreground pb-10">
-          <h1 className="display-title text-5xl font-black sm:text-7xl">{note.title}</h1>
+          <h1 className="display-title text-[2.75rem] font-black sm:text-7xl">{note.title}</h1>
           <p className="mt-5 text-lg leading-8 text-muted-foreground">{note.description}</p>
           <div className="mt-5 flex flex-wrap items-center gap-3 font-mono text-xs text-muted-foreground">
             <span className="border-2 border-foreground bg-highlight px-2 py-1 font-bold text-highlight-foreground">{note.category}</span>
@@ -143,12 +143,12 @@ export default function NoteDetail() {
           </div>
         </header>
         {note.outline && (
-          <nav className="creative-panel mx-auto mt-10 max-w-3xl p-7 sm:p-10" aria-label={`${note.title}${language === "zh" ? "" : " "}${ui.noteDirectory}`}>
+          <nav className="creative-panel mx-auto mt-10 max-w-3xl p-5 sm:p-10" aria-label={`${note.title}${language === "zh" ? "" : " "}${ui.noteDirectory}`}>
             <div className="space-y-12">
               {note.outline.map((group) => (
                 <section key={group.title} aria-labelledby={`outline-${group.title}`}>
                   <h2 id={`outline-${group.title}`} className="display-title text-3xl font-black sm:text-4xl">{group.title}</h2>
-                  <ul className="mt-6 space-y-3 pl-7 text-lg marker:text-foreground sm:text-xl">
+                  <ul className="mt-6 space-y-3 pl-5 text-lg marker:text-foreground sm:pl-7 sm:text-xl">
                     {group.items.map((item) => (
                       <li id={item.id} className="scroll-mt-24 pl-1 target:bg-highlight/30" key={item.id}>
                         <Link className="creative-link text-lg sm:text-xl" to={`/notes/${note.slug}/${item.id}`}>{item.label}</Link>

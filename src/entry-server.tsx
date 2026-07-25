@@ -6,6 +6,8 @@ import { publishedNotes } from "./content/notes";
 import { getIndexableRoutes, getPublicRoutes } from "./lib/content/routes";
 import { getMetadataForPath } from "./lib/seo";
 import { routerBasename, withBasePath } from "./config/site";
+import { DEFAULT_LANGUAGE } from "./i18n/LanguageContext";
+import { localizeMetadata } from "./i18n/seo";
 
 validateContent();
 
@@ -15,7 +17,7 @@ export const getPublishedNotes = () => publishedNotes;
 export async function render(url: string): Promise<{ html: string; status: number; metadata: ReturnType<typeof getMetadataForPath> }> {
   let didError = false;
   const pathname = new URL(url, "https://render.local").pathname;
-  const metadata = getMetadataForPath(pathname);
+  const metadata = localizeMetadata(getMetadataForPath(pathname), pathname, DEFAULT_LANGUAGE);
   const stream = await renderToReadableStream(
     <StaticRouter basename={routerBasename} location={withBasePath(pathname)}><AppRoutes /></StaticRouter>,
     { onError(error) { didError = true; console.error(error); } },

@@ -22,10 +22,10 @@ function renderHead(metadata) {
     `<meta name="twitter:card" content="summary_large_image">`,
   ];
   if (canonical) tags.push(`<link rel="canonical" href="${escapeHtml(canonical)}">`, `<meta property="og:url" content="${escapeHtml(canonical)}">`);
-  if (siteUrl && serverEntry.getPublishedNotes().length) tags.push(`<link rel="alternate" type="application/rss+xml" title="Bryant 的学习笔记" href="${escapeHtml(absolute("/feed.xml"))}">`);
+  if (siteUrl && serverEntry.getPublishedNotes().length) tags.push(`<link rel="alternate" type="application/rss+xml" title="Bryant's Study Notes" href="${escapeHtml(absolute("/feed.xml"))}">`);
   if (siteUrl && existsSync(join(root, "dist/og-experience.png"))) {
     const ogImage = absolute("/og-experience.png");
-    tags.push(`<meta property="og:image" content="${escapeHtml(ogImage)}">`, `<meta property="og:image:alt" content="Bryant 的全栈开发与 AI 产品工程作品集">`, `<meta name="twitter:image" content="${escapeHtml(ogImage)}">`);
+    tags.push(`<meta property="og:image" content="${escapeHtml(ogImage)}">`, `<meta property="og:image:alt" content="Bryant's full-stack development and AI product engineering portfolio">`, `<meta name="twitter:image" content="${escapeHtml(ogImage)}">`);
   }
   metadata.jsonLd.forEach((value) => tags.push(`<script type="application/ld+json" data-site-jsonld>${JSON.stringify(value).replace(/</g, "\\u003c")}</script>`));
   return tags.join("\n    ");

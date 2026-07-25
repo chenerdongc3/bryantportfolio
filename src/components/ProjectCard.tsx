@@ -7,13 +7,13 @@ import { usePortfolioContent } from "@/i18n/usePortfolioContent";
 export function ProjectCard({ project }: { project: Project }) {
   const { ui } = usePortfolioContent();
   return (
-    <article className="creative-panel group relative flex h-full flex-col overflow-hidden p-6 transition-[transform,box-shadow] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[10px_10px_0_hsl(var(--primary))] motion-reduce:transform-none">
+    <article className="creative-panel group relative flex h-full min-w-0 flex-col overflow-hidden p-5 transition-[transform,box-shadow] motion-reduce:transform-none sm:p-6 md:hover:-translate-x-1 md:hover:-translate-y-1 md:hover:shadow-[10px_10px_0_hsl(var(--primary))]">
       <div className="absolute right-0 top-0 size-16 translate-x-8 -translate-y-8 rotate-45 border-2 border-foreground bg-highlight" aria-hidden="true" />
-      <div className="mb-5 flex items-center justify-between gap-4 font-mono text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+      <div className="mb-5 flex flex-wrap items-center justify-between gap-2 pr-5 font-mono text-xs font-semibold uppercase tracking-wide text-muted-foreground">
         <time>{project.period}</time>
         {project.featured && <span className="relative z-10 -rotate-2 border-2 border-foreground bg-secondary px-2 py-1 text-secondary-foreground">{ui.featured}</span>}
       </div>
-      <h2 className="text-2xl font-bold tracking-tight">
+      <h2 className="break-words text-2xl font-bold tracking-tight">
         <Link className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" to={`/projects/${project.slug}`}>
           <span className="absolute inset-0" aria-hidden="true" />
           {project.title}

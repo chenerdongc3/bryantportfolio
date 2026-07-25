@@ -15,16 +15,16 @@ export default function Home() {
     <>
       <section className="relative border-b-2 border-foreground bg-primary/10">
         <div className="absolute left-[7%] top-12 hidden size-20 rotate-12 border-2 border-foreground bg-highlight shadow-[5px_5px_0_hsl(var(--foreground))] lg:block" aria-hidden="true" />
-        <PageContainer className="grid gap-14 py-16 sm:py-24 lg:grid-cols-[minmax(0,1fr)_23rem] lg:items-center lg:py-28">
+        <PageContainer className="grid gap-11 py-12 sm:gap-14 sm:py-20 lg:grid-cols-[minmax(0,1fr)_23rem] lg:items-center lg:py-28">
           <div className="max-w-3xl">
             <p className="mb-6 inline-flex rotate-1 border-2 border-foreground bg-secondary px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-[0.14em] text-secondary-foreground shadow-[4px_4px_0_hsl(var(--foreground))]">{profile.role}</p>
-            <h1 className="display-title text-5xl font-black leading-[0.98] sm:text-7xl lg:text-8xl">
+            <h1 className="display-title text-[2.75rem] font-black leading-[0.98] sm:text-7xl lg:text-8xl">
               {content.hero}
             </h1>
             <p className="mt-7 max-w-2xl text-pretty text-lg leading-8 text-muted-foreground sm:text-xl">{profile.bio}</p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Button asChild size="lg"><a href="#experience">{content.viewExperience} <ArrowDownRight className="size-4" /></a></Button>
-              <Button asChild size="lg" variant="outline"><Link to="/projects">{content.viewProjects} <ArrowRight className="size-4" /></Link></Button>
+            <div className="mt-9 grid gap-3 sm:flex sm:flex-wrap">
+              <Button asChild size="lg" className="w-full sm:w-auto"><a href="#experience">{content.viewExperience} <ArrowDownRight className="size-4" /></a></Button>
+              <Button asChild size="lg" variant="outline" className="w-full sm:w-auto"><Link to="/projects">{content.viewProjects} <ArrowRight className="size-4" /></Link></Button>
             </div>
           </div>
           <div className="relative mx-auto w-full max-w-sm lg:mx-0">
@@ -35,12 +35,12 @@ export default function Home() {
         </PageContainer>
       </section>
 
-      <section id="experience" className="scroll-mt-20 border-b-2 border-foreground bg-secondary py-20 text-secondary-foreground sm:py-28" aria-labelledby="experience-heading">
+      <section id="experience" className="scroll-mt-20 border-b-2 border-foreground bg-secondary py-16 text-secondary-foreground sm:py-24 xl:py-28" aria-labelledby="experience-heading">
         <PageContainer>
           <div className="mb-12 grid gap-6 lg:grid-cols-[minmax(0,1fr)_28rem] lg:items-end">
             <div>
               <p className="section-label">{content.experienceLabel}</p>
-              <h2 id="experience-heading" className="display-title mt-5 max-w-4xl text-5xl font-black leading-[1.02] sm:text-7xl">
+              <h2 id="experience-heading" className="display-title mt-5 max-w-4xl text-[2.75rem] font-black leading-[1.02] sm:text-7xl">
                 {content.experienceTitle}
               </h2>
             </div>
@@ -55,7 +55,7 @@ export default function Home() {
         </PageContainer>
       </section>
 
-      <section className="py-20 sm:py-24" aria-labelledby="featured-projects">
+      <section className="py-16 sm:py-24" aria-labelledby="featured-projects">
         <PageContainer>
           <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -65,7 +65,7 @@ export default function Home() {
             </div>
             <Link className="creative-link inline-flex items-center gap-1" to="/projects">{content.viewAll} <ArrowRight className="size-4" /></Link>
           </div>
-          <div className="grid gap-5 lg:grid-cols-2">{featuredProjects.slice(0, 2).map((project) => <ProjectCard key={project.slug} project={project} />)}</div>
+          <div className="grid gap-5 md:grid-cols-2">{featuredProjects.slice(0, 2).map((project) => <ProjectCard key={project.slug} project={project} />)}</div>
         </PageContainer>
       </section>
     </>

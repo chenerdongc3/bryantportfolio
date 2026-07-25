@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { LanguageContext, type Language } from "./LanguageContext";
+import { DEFAULT_LANGUAGE, LanguageContext, type Language } from "./LanguageContext";
 
 const STORAGE_KEY = "portfolio-language";
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>("zh");
+  const [language, setLanguage] = useState<Language>(DEFAULT_LANGUAGE);
   const hasRestoredLanguage = useRef(false);
 
   useEffect(() => {

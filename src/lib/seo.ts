@@ -167,7 +167,7 @@ export function applyMetadata(metadata: PageMetadata) {
   const ogImage = absoluteUrl("/og-experience.png");
   if (ogImage) {
     upsertMeta('meta[property="og:image"]', { property: "og:image", content: ogImage });
-    upsertMeta('meta[property="og:image:alt"]', { property: "og:image:alt", content: "Bryant 的全栈开发与 AI 产品工程作品集" });
+    upsertMeta('meta[property="og:image:alt"]', { property: "og:image:alt", content: "Bryant's full-stack development and AI product engineering portfolio" });
     upsertMeta('meta[name="twitter:image"]', { name: "twitter:image", content: ogImage });
   }
 

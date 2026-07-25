@@ -26,15 +26,15 @@ export function ExperienceTimeline({ experiences, variant = "detail" }: Experien
           <li key={`${experience.organization}-${experience.role}`}>
             <article
               className={cn(
-                "creative-panel group relative grid overflow-hidden p-6 transition-[transform,box-shadow] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[10px_10px_0_hsl(var(--foreground))] motion-reduce:transform-none sm:p-8 lg:grid-cols-[8rem_minmax(0,0.8fr)_minmax(0,1.25fr)] lg:gap-8",
+                "creative-panel group relative grid min-w-0 overflow-hidden p-5 transition-[transform,box-shadow] motion-reduce:transform-none sm:p-8 md:grid-cols-[6rem_minmax(0,1fr)] md:gap-x-7 md:hover:-translate-x-1 md:hover:-translate-y-1 md:hover:shadow-[10px_10px_0_hsl(var(--foreground))] xl:grid-cols-[8rem_minmax(0,0.8fr)_minmax(0,1.25fr)] xl:gap-8",
                 showcaseColors[index % showcaseColors.length],
               )}
             >
-              <div className="mb-6 flex items-start justify-between gap-4 lg:mb-0 lg:block">
+              <div className="mb-5 flex items-start justify-between gap-4 md:mb-0 md:block">
                 <span className="font-display text-5xl leading-none tracking-wide" aria-hidden="true">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className="mt-1 block h-2 w-16 border-2 border-foreground bg-secondary lg:mt-5" aria-hidden="true" />
+                <span className="mt-1 block h-2 w-16 border-2 border-foreground bg-secondary md:mt-5" aria-hidden="true" />
               </div>
 
               <div>
@@ -59,7 +59,7 @@ export function ExperienceTimeline({ experiences, variant = "detail" }: Experien
                 </div>
               </div>
 
-              <div className="mt-7 border-t-2 border-current/35 pt-6 lg:mt-0 lg:border-l-2 lg:border-t-0 lg:pl-8 lg:pt-0">
+              <div className="mt-7 border-t-2 border-current/35 pt-6 md:col-start-2 xl:col-start-auto xl:mt-0 xl:border-l-2 xl:border-t-0 xl:pl-8 xl:pt-0">
                 <p className="text-base font-medium leading-7 sm:text-lg sm:leading-8">{experience.summary}</p>
                 <ul className="mt-5 space-y-3 text-sm opacity-80 sm:text-base">
                   {experience.highlights.slice(0, 2).map((highlight) => (
@@ -77,14 +77,14 @@ export function ExperienceTimeline({ experiences, variant = "detail" }: Experien
   }
 
   return (
-    <ol className="space-y-8 border-l-2 border-foreground pl-7" aria-label={timelineLabel}>
+    <ol className="space-y-6 sm:space-y-8 sm:border-l-2 sm:border-foreground sm:pl-7" aria-label={timelineLabel}>
       {experiences.map((experience) => (
         <li key={`${experience.organization}-${experience.role}`}>
-          <article className="creative-panel relative p-6">
-            <span className="absolute -left-[2.3rem] top-7 size-4 rotate-45 border-2 border-foreground bg-primary" aria-hidden="true" />
+          <article className="creative-panel relative min-w-0 p-5 sm:p-6">
+            <span className="absolute -left-[2.3rem] top-7 hidden size-4 rotate-45 border-2 border-foreground bg-primary sm:block" aria-hidden="true" />
             {experience.period && <time className="font-mono text-xs font-bold uppercase tracking-wide text-primary">{experience.period}</time>}
             <div className={cn("flex flex-wrap items-center gap-3", experience.period && "mt-2")}>
-              <h3 className="text-xl font-bold">{experience.organization} · {experience.role}</h3>
+              <h3 className="break-words text-xl font-bold">{experience.organization} · {experience.role}</h3>
               {experience.logo && (
                 <span className="inline-flex h-8 items-center rounded-sm border-2 border-foreground bg-foreground px-2">
                   <img className="max-h-4 w-auto max-w-20 object-contain" src={withBasePath(experience.logo.src)} alt={experience.logo.alt} />

@@ -2,6 +2,8 @@ import { createContext, useContext } from "react";
 
 export type Language = "zh" | "en";
 
+export const DEFAULT_LANGUAGE: Language = "en";
+
 export type LanguageContextValue = {
   language: Language;
   setLanguage: (language: Language) => void;

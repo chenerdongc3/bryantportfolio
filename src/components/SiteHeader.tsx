@@ -37,9 +37,9 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b-2 border-foreground bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/85">
-      <PageContainer className="flex h-[4.5rem] items-center justify-between gap-4">
-        <Link to="/" className="-rotate-1 rounded-sm border-2 border-foreground bg-primary px-3 py-1.5 font-display text-xl tracking-wide text-primary-foreground shadow-[3px_3px_0_hsl(var(--foreground))] transition-transform hover:rotate-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-          Bryant <span className="font-mono text-xs font-bold uppercase tracking-wider">/ Portfolio</span>
+      <PageContainer className="flex h-16 items-center justify-between gap-2 sm:h-[4.5rem] sm:gap-4">
+        <Link to="/" className="-rotate-1 rounded-sm border-2 border-foreground bg-primary px-2.5 py-1.5 font-display text-lg tracking-wide text-primary-foreground shadow-[3px_3px_0_hsl(var(--foreground))] transition-transform hover:rotate-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:px-3 sm:text-xl">
+          Bryant <span className="hidden font-mono text-xs font-bold uppercase tracking-wider min-[390px]:inline">/ Portfolio</span>
         </Link>
 
         <nav className="hidden items-center md:flex" aria-label={ui.mainNavigation}>

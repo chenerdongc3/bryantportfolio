@@ -4,52 +4,52 @@ import { describe, expect, it } from "vitest";
 import { AppRoutes } from "@/App";
 
 describe("public routes", () => {
-  it("leads with experience and keeps selected project proof on the homepage", async () => {
+  it("leads with English experience and keeps selected project proof on the homepage", async () => {
     render(<MemoryRouter initialEntries={["/"]}><AppRoutes /></MemoryRouter>);
-    expect(await screen.findByRole("heading", { level: 2, name: /先看我解决过/ })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 3, name: "企业级 AI 应用团队" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 3, name: "哈啰" })).toBeInTheDocument();
-    expect(screen.getByRole("img", { name: "哈啰 Logo" })).toBeInTheDocument();
-    expect(screen.getByRole("img", { name: "KuCoin Logo" })).toBeInTheDocument();
-    expect(await screen.findByRole("heading", { level: 2, name: "ADHD 情感陪伴闹钟" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 2, name: /See the problems/ })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: "Enterprise AI Product Team" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: "Hello" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "Hello logo" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "KuCoin logo" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 2, name: "ADHD Companion Alarm" })).toBeInTheDocument();
   });
 
   it("renders a project deep link", async () => {
     render(<MemoryRouter initialEntries={["/projects/ai-conversation-practice"]}><AppRoutes /></MemoryRouter>);
-    expect(await screen.findByRole("heading", { level: 1, name: "智能陪练对话平台" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 1, name: "AI Conversation Practice" })).toBeInTheDocument();
   });
 
   it("renders the German note from the notes index", async () => {
     render(<MemoryRouter initialEntries={["/notes"]}><AppRoutes /></MemoryRouter>);
-    expect(await screen.findByRole("heading", { level: 2, name: "德语学习笔记" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 2, name: "German Study Notes" })).toBeInTheDocument();
   });
 
   it("renders the German grammar outline", async () => {
     render(<MemoryRouter initialEntries={["/notes/german"]}><AppRoutes /></MemoryRouter>);
-    expect(await screen.findByRole("heading", { level: 1, name: "德语学习笔记" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: "第一部分 词法" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "2.6 从句 Linker" })).toHaveAttribute("href", "/notes/german/linker");
+    expect(await screen.findByRole("heading", { level: 1, name: "German Study Notes" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Part I · Morphology" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "2.6 Subordinate Clauses" })).toHaveAttribute("href", "/notes/german/linker");
   });
 
   it("renders a concise grammar lesson with its directory", async () => {
     render(<MemoryRouter initialEntries={["/notes/german/articles"]}><AppRoutes /></MemoryRouter>);
-    expect(await screen.findByRole("heading", { level: 1, name: "冠词 Articles" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: "一句公式" })).toBeInTheDocument();
-    expect(screen.getAllByRole("navigation", { name: "德语学习笔记目录" })).toHaveLength(2);
-    expect(screen.getAllByRole("link", { name: "1.1 冠词 Articles" })[0]).toHaveAttribute("aria-current", "page");
+    expect(await screen.findByRole("heading", { level: 1, name: "Articles" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "One-line formula" })).toBeInTheDocument();
+    expect(screen.getAllByRole("navigation", { name: "German Study Notes directory" })).toHaveLength(2);
+    expect(screen.getAllByRole("link", { name: "1.1 Articles" })[0]).toHaveAttribute("aria-current", "page");
   });
 
   it("renders a noindex 404 for an unknown route", async () => {
     render(<MemoryRouter initialEntries={["/missing"]}><AppRoutes /></MemoryRouter>);
-    expect(await screen.findByRole("heading", { level: 1, name: "页面没有找到" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 1, name: "Page not found" })).toBeInTheDocument();
   });
 
-  it("switches all visible portfolio copy to English", async () => {
+  it("switches all visible portfolio copy to Chinese", async () => {
     render(<MemoryRouter initialEntries={["/projects"]}><AppRoutes /></MemoryRouter>);
-    const toggle = await screen.findByRole("button", { name: "切换到 English" });
+    const toggle = await screen.findByRole("button", { name: "切换到中文" });
     fireEvent.click(toggle);
-    expect(await screen.findByRole("heading", { level: 1, name: /Project work/ })).toBeInTheDocument();
-    expect(screen.getByRole("navigation", { name: "Main navigation" })).toHaveTextContent("Home");
+    expect(await screen.findByRole("heading", { level: 1, name: /项目实践/ })).toBeInTheDocument();
+    expect(screen.getByRole("navigation", { name: "主导航" })).toHaveTextContent("首页");
     expect(screen.queryByRole("button", { name: /主题/ })).not.toBeInTheDocument();
   });
 });

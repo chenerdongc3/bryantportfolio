@@ -49,10 +49,10 @@
     @apply inline-flex -rotate-1 border-2 border-foreground bg-highlight px-2.5 py-1 font-display text-base uppercase tracking-[0.12em] text-highlight-foreground shadow-[3px_3px_0_hsl(var(--foreground))];
   }
   .display-title {
-    @apply text-balance font-display tracking-[0.015em];
+    @apply break-words text-balance font-display tracking-[0.015em];
   }
   .creative-panel {
-    @apply border-2 border-foreground bg-card shadow-[6px_6px_0_hsl(var(--foreground))];
+    @apply border-2 border-foreground bg-card shadow-[4px_4px_0_hsl(var(--foreground))] sm:shadow-[6px_6px_0_hsl(var(--foreground))];
   }
   .creative-link {
     @apply font-mono text-sm font-bold text-primary underline decoration-2 underline-offset-4 transition hover:text-secondary focus-visible:rounded-sm;
