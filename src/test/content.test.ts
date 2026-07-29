@@ -34,6 +34,21 @@ describe("content model", () => {
     expect(getIndexableRoutes()).toEqual(expect.arrayContaining(["/notes", "/notes/german", "/notes/german/articles"]));
   });
 
+  it("publishes the full-stack roadmap as an aligned learning path", () => {
+    const roadmap = publishedNotes.find((note) => note.slug === "fullstack-roadmap");
+    const outlineItems = roadmap?.outline?.flatMap((group) => group.items) ?? [];
+    expect(roadmap?.outline).toHaveLength(4);
+    expect(outlineItems).toHaveLength(12);
+    expect(roadmap?.lessons).toHaveLength(12);
+    expect(roadmap?.lessons?.map((lesson) => lesson.id)).toEqual(
+      outlineItems.map((item) => item.id),
+    );
+    expect(getIndexableRoutes()).toEqual(expect.arrayContaining([
+      "/notes/fullstack-roadmap",
+      "/notes/fullstack-roadmap/delivery-capstone",
+    ]));
+  });
+
   it("keeps English content aligned with every localized portfolio entry", () => {
     expect(experiencesEnglish).toHaveLength(experiences.length);
     expect(projectsEnglish.map((project) => project.slug)).toEqual(
@@ -42,8 +57,10 @@ describe("content model", () => {
     expect(notesEnglish.map((note) => note.slug)).toEqual(
       publishedNotes.map((note) => note.slug),
     );
-    expect(notesEnglish[0]?.lessons?.map((lesson) => lesson.id)).toEqual(
-      publishedNotes[0]?.lessons?.map((lesson) => lesson.id),
-    );
+    publishedNotes.forEach((note, index) => {
+      expect(notesEnglish[index]?.lessons?.map((lesson) => lesson.id)).toEqual(
+        note.lessons?.map((lesson) => lesson.id),
+      );
+    });
   });
 });

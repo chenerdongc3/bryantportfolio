@@ -1,5 +1,6 @@
 import type { Experience, Note, Project } from "@/content/types";
 import type { Language } from "./LanguageContext";
+import { fullstackRoadmapNoteEnglish } from "./notes/fullstack";
 
 export const pageCopy = {
   zh: {
@@ -261,7 +262,7 @@ noteEnglishBase.lessons = Object.entries(lessonEnglish).map(([id, value]) => ({
   tip: value[6],
 }));
 
-export const notesEnglish: Note[] = [noteEnglishBase];
+export const notesEnglish: Note[] = [fullstackRoadmapNoteEnglish, noteEnglishBase];
 
 export function getLocalizedCollection<T>(language: Language, chinese: T[], english: T[]) {
   return language === "en" ? english : chinese;

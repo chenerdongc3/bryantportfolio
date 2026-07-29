@@ -1,6 +1,8 @@
 import type { Note } from "../types";
+import { fullstackRoadmapNote } from "./fullstack";
 
 export const notes: Note[] = [
+  fullstackRoadmapNote,
   {
     slug: "german",
     title: "德语学习笔记",

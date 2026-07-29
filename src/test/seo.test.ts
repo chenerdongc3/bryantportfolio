@@ -15,6 +15,8 @@ describe("route metadata", () => {
     expect(getMetadataForPath("/notes/german").title).toContain("德语学习笔记");
     expect(getMetadataForPath("/notes/german/articles").title).toContain("冠词 Articles");
     expect(getMetadataForPath("/notes/german/articles").description).toContain("冠词放在名词前");
+    expect(getMetadataForPath("/notes/fullstack-roadmap").title).toContain("Full-Stack 开发学习路线图");
+    expect(getMetadataForPath("/notes/fullstack-roadmap/backend-api").description).toContain("后端负责可信业务规则");
     expect(getMetadataForPath("/notes/german/unknown").noindex).toBe(true);
     expect(getMetadataForPath("/does-not-exist").noindex).toBe(true);
   });
