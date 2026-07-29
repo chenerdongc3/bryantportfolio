@@ -42,6 +42,10 @@ describe("public routes", () => {
   it("renders the full-stack roadmap with actionable completion details", async () => {
     render(<MemoryRouter initialEntries={["/notes/fullstack-roadmap/backend-api"]}><AppRoutes /></MemoryRouter>);
     expect(await screen.findByRole("heading", { level: 1, name: "Backend and API Design" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Key points in depth" })).toBeInTheDocument();
+    expect(screen.getAllByRole("heading", { level: 4, name: "What to understand" })).toHaveLength(3);
+    expect(screen.getAllByRole("heading", { level: 4, name: "How to apply and verify" })).toHaveLength(3);
+    expect(screen.getAllByRole("heading", { level: 4, name: "Common pitfalls" })).toHaveLength(3);
     expect(screen.getByRole("heading", { level: 2, name: "Hands-on practice" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "Stage deliverables" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "Completion criteria" })).toBeInTheDocument();

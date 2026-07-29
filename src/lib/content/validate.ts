@@ -52,6 +52,13 @@ const noteSchema = z.object({
     objectives: z.array(z.string().min(1)).min(1).optional(),
     formula: z.string().min(1),
     points: z.array(z.string().min(1)).length(3),
+    pointDetails: z.array(z.object({
+      title: z.string().min(1),
+      explanation: z.string().min(1),
+      concepts: z.array(z.string().min(1)).min(2),
+      application: z.string().min(1),
+      pitfalls: z.array(z.string().min(1)).min(1),
+    })).length(3).optional(),
     practice: z.array(z.string().min(1)).min(1).optional(),
     deliverables: z.array(z.string().min(1)).min(1).optional(),
     acceptanceCriteria: z.array(z.string().min(1)).min(1).optional(),

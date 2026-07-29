@@ -1,4 +1,5 @@
 import type { Note } from "../types";
+import { fullstackPointDetails } from "./fullstack-point-details";
 
 export const fullstackRoadmapNote: Note = {
   slug: "fullstack-roadmap",
@@ -62,6 +63,7 @@ export const fullstackRoadmapNote: Note = {
         "为代码、笔记、问题和复盘建立可持续的记录方式。",
       ],
       formula: "理解原理 → 完成最小练习 → 做进项目 → 复盘与重构",
+      pointDetails: fullstackPointDetails["learning-strategy"],
       points: [
         "先选择一条主栈：TypeScript + React + Node.js + PostgreSQL，减少频繁切换语言和框架带来的认知成本。",
         "每个阶段都产出可运行成果；学习时间建议按“30% 输入、70% 编码与调试”分配。",
@@ -103,6 +105,7 @@ export const fullstackRoadmapNote: Note = {
         "理解缓存、Cookie、CORS 与 TLS 的职责和常见失败方式。",
       ],
       formula: "URL → DNS → 连接与 TLS → HTTP 请求 → 服务端响应 → 浏览器渲染",
+      pointDetails: fullstackPointDetails["web-and-http"],
       points: [
         "掌握 URL、请求方法、状态码、Header、Cookie、缓存和 CORS，能够用浏览器 Network 面板解释一次请求。",
         "理解 HTTP 是无状态协议；会区分客户端错误、服务端错误、网络失败和业务失败。",
@@ -144,6 +147,7 @@ export const fullstackRoadmapNote: Note = {
         "让键盘、读屏器、缩放与 reduced-motion 用户都能完成核心任务。",
       ],
       formula: "语义结构 + 响应式布局 + 可访问交互 = 稳定界面",
+      pointDetails: fullstackPointDetails["html-css-accessibility"],
       points: [
         "熟悉语义化标签、表单、图片替代文本和标题层级，让键盘、读屏器与搜索引擎都能理解页面。",
         "掌握盒模型、层叠、Flexbox、Grid、定位和媒体查询，优先用布局系统解决问题。",
@@ -185,6 +189,7 @@ export const fullstackRoadmapNote: Note = {
         "对 API、表单与环境变量执行运行时校验并输出可处理错误。",
       ],
       formula: "输入校验 → 类型收窄 → 纯函数处理 → 明确副作用",
+      pointDetails: fullstackPointDetails["javascript-typescript"],
       points: [
         "掌握作用域、闭包、原型、模块、事件循环、Promise、async/await 与错误传播。",
         "使用联合类型、泛型、类型守卫和 unknown 表达真实约束，避免用 any 隐藏设计问题。",
@@ -226,6 +231,7 @@ export const fullstackRoadmapNote: Note = {
         "用组合、明确 Props 和单向数据流控制组件耦合。",
       ],
       formula: "UI = f(props, state)；组合优先于页面特化",
+      pointDetails: fullstackPointDetails["react-architecture"],
       points: [
         "理解渲染、事件、Effect、受控表单与组件生命周期，避免用 Effect 同步可直接计算的状态。",
         "先复用项目组件库和基础组件，再抽取领域组件；让组件 API 表达业务意图。",
@@ -267,6 +273,7 @@ export const fullstackRoadmapNote: Note = {
         "正确处理请求缓存、重新验证、竞态和乐观更新失败。",
       ],
       formula: "Server State + URL State + Form State + UI State",
+      pointDetails: fullstackPointDetails["frontend-data-flow"],
       points: [
         "列表、缓存和重新验证属于 Server State；筛选、分页和可分享视图优先进入 URL。",
         "表单需要字段校验、提交状态和服务端错误映射；弹窗开关等短生命周期状态保留在组件附近。",
@@ -308,6 +315,7 @@ export const fullstackRoadmapNote: Note = {
         "根据内容更新频率与交互需求选择 CSR、SSG 或 SSR。",
       ],
       formula: "加载 → 解析 → 执行 → 布局 → 绘制 → 交互",
+      pointDetails: fullstackPointDetails["browser-performance"],
       points: [
         "理解 DOM、CSSOM、渲染流水线、存储和缓存，并能使用 Performance、Network 与 Lighthouse 定位瓶颈。",
         "围绕 LCP、INP、CLS 优化关键资源、代码分割、图片尺寸、长任务和布局稳定性。",
@@ -349,6 +357,7 @@ export const fullstackRoadmapNote: Note = {
         "让日志、配置、异常和关闭流程符合生产运行要求。",
       ],
       formula: "请求解析 → 认证 → 校验 → 业务服务 → 数据访问 → 稳定响应",
+      pointDetails: fullstackPointDetails["backend-api"],
       points: [
         "掌握 Node.js 运行时、路由、中间件、依赖注入、错误处理、配置管理与结构化日志。",
         "按资源和用例设计 REST API，统一分页、错误、幂等性和版本策略，并先复用现有接口。",
@@ -390,6 +399,7 @@ export const fullstackRoadmapNote: Note = {
         "通过 EXPLAIN 和真实查询模式设计、验证索引。",
       ],
       formula: "业务实体 + 关系 + 约束 + 索引 + 事务",
+      pointDetails: fullstackPointDetails["database-modeling"],
       points: [
         "掌握表、主键、外键、唯一约束、范式、Join、聚合、索引和 EXPLAIN。",
         "用事务保护必须共同成功的写入，通过迁移管理 Schema 演进，避免直接修改生产结构。",
@@ -431,6 +441,7 @@ export const fullstackRoadmapNote: Note = {
         "建立威胁模型并对常见 Web 攻击应用分层防护。",
       ],
       formula: "身份认证 + 资源授权 + 输入校验 + 最小权限 + 审计",
+      pointDetails: fullstackPointDetails["auth-security"],
       points: [
         "理解 Session、Cookie、Token、OAuth、密码哈希与密钥管理，优先采用成熟认证方案。",
         "防范 XSS、CSRF、SQL 注入、SSRF、暴力尝试和敏感信息泄漏，并设置安全响应头和速率限制。",
@@ -472,6 +483,7 @@ export const fullstackRoadmapNote: Note = {
         "让 CI 失败和生产故障都能被稳定复现与定位。",
       ],
       formula: "静态检查 + 单元测试 + 集成测试 + E2E + 日志/指标/追踪",
+      pointDetails: fullstackPointDetails["testing-observability"],
       points: [
         "测试关键业务规则、API 与核心用户旅程，减少对内部实现和脆弱快照的依赖。",
         "在 CI 中运行 lint、typecheck、test 和 build，并让失败能够稳定复现。",
@@ -513,6 +525,7 @@ export const fullstackRoadmapNote: Note = {
         "通过文档、演示、监控和复盘证明系统可运行、可维护。",
       ],
       formula: "代码 → CI → 构建产物 → 迁移 → 部署 → 健康检查 → 监控与回滚",
+      pointDetails: fullstackPointDetails["delivery-capstone"],
       points: [
         "理解环境变量、Docker、反向代理、域名、TLS、数据库迁移、备份和零停机部署的基本流程。",
         "毕业项目至少包含认证、CRUD、搜索或筛选、权限、持久化、测试、日志与线上部署。",

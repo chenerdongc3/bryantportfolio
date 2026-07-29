@@ -110,10 +110,47 @@ function LessonDetail({ note, lessonId }: { note: Note; lessonId: string }) {
 
             <section className="mt-10" aria-labelledby="lesson-points">
               <h2 id="lesson-points" className="font-display text-3xl tracking-wide">{ui.keyPoints}</h2>
-              <ol className="mt-5 space-y-3">
+              <ol className="mt-5 space-y-6">
                 {lesson.points.map((point, index) => (
-                  <li className="flex gap-4 border-b border-foreground/20 pb-3 leading-7" key={point}>
-                    <span className="font-mono font-bold text-primary">0{index + 1}</span><span>{point}</span>
+                  <li className={cn("border-b border-foreground/20 pb-4 leading-7", lesson.pointDetails && "creative-panel border-2 border-foreground p-5 sm:p-6")} key={point}>
+                    <div className="flex gap-4">
+                      <span className="font-mono font-bold text-primary">0{index + 1}</span>
+                      <div className="min-w-0">
+                        {lesson.pointDetails?.[index] && (
+                          <h3 className="font-display text-2xl tracking-wide">{lesson.pointDetails[index].title}</h3>
+                        )}
+                        <p className={cn(lesson.pointDetails?.[index] && "mt-2 font-semibold")}>{point}</p>
+                      </div>
+                    </div>
+
+                    {lesson.pointDetails?.[index] && (
+                      <div className="mt-5 space-y-5 border-t border-foreground/20 pt-5">
+                        <p className="leading-8 text-muted-foreground">{lesson.pointDetails[index].explanation}</p>
+
+                        <section aria-labelledby={`lesson-point-${index}-concepts`}>
+                          <h4 id={`lesson-point-${index}-concepts`} className="font-mono text-xs font-bold uppercase tracking-wider text-primary">{ui.conceptsToMaster}</h4>
+                          <ul className="mt-3 space-y-2">
+                            {lesson.pointDetails[index].concepts.map((concept) => (
+                              <li className="flex gap-3" key={concept}><span aria-hidden="true">→</span><span>{concept}</span></li>
+                            ))}
+                          </ul>
+                        </section>
+
+                        <section aria-labelledby={`lesson-point-${index}-application`}>
+                          <h4 id={`lesson-point-${index}-application`} className="font-mono text-xs font-bold uppercase tracking-wider text-primary">{ui.applicationGuide}</h4>
+                          <p className="mt-2 leading-8">{lesson.pointDetails[index].application}</p>
+                        </section>
+
+                        <section aria-labelledby={`lesson-point-${index}-pitfalls`}>
+                          <h4 id={`lesson-point-${index}-pitfalls`} className="font-mono text-xs font-bold uppercase tracking-wider text-primary">{ui.commonPitfalls}</h4>
+                          <ul className="mt-3 space-y-2 text-muted-foreground">
+                            {lesson.pointDetails[index].pitfalls.map((pitfall) => (
+                              <li className="flex gap-3" key={pitfall}><span aria-hidden="true">×</span><span>{pitfall}</span></li>
+                            ))}
+                          </ul>
+                        </section>
+                      </div>
+                    )}
                   </li>
                 ))}
               </ol>

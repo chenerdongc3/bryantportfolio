@@ -47,6 +47,13 @@ describe("content model", () => {
       expect(lesson.duration).toBeTruthy();
       expect(lesson.prerequisites?.length).toBeGreaterThanOrEqual(2);
       expect(lesson.objectives?.length).toBeGreaterThanOrEqual(3);
+      expect(lesson.pointDetails).toHaveLength(3);
+      lesson.pointDetails?.forEach((detail) => {
+        expect(detail.explanation.length).toBeGreaterThan(40);
+        expect(detail.concepts.length).toBeGreaterThanOrEqual(2);
+        expect(detail.application.length).toBeGreaterThan(20);
+        expect(detail.pitfalls.length).toBeGreaterThanOrEqual(1);
+      });
       expect(lesson.practice?.length).toBeGreaterThanOrEqual(3);
       expect(lesson.deliverables?.length).toBeGreaterThanOrEqual(2);
       expect(lesson.acceptanceCriteria?.length).toBeGreaterThanOrEqual(3);
@@ -69,6 +76,11 @@ describe("content model", () => {
       expect(notesEnglish[index]?.lessons?.map((lesson) => lesson.id)).toEqual(
         note.lessons?.map((lesson) => lesson.id),
       );
+      note.lessons?.forEach((lesson, lessonIndex) => {
+        expect(notesEnglish[index]?.lessons?.[lessonIndex]?.pointDetails?.length).toBe(
+          lesson.pointDetails?.length,
+        );
+      });
     });
   });
 });

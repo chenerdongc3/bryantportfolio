@@ -1,4 +1,5 @@
 import type { Note, NoteLesson } from "@/content/types";
+import { fullstackPointDetailsEnglish } from "./fullstack-point-details";
 
 type RoadmapDetails = Required<Pick<
   NoteLesson,
@@ -157,6 +158,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       summary: "Full-stack learning is not about collecting technologies. It is about independently turning a real requirement into a working, maintainable, and verifiable product.",
       ...roadmapDetails["learning-strategy"],
       formula: "understand → complete a small exercise → apply in a project → review and refactor",
+      pointDetails: fullstackPointDetailsEnglish["learning-strategy"],
       points: [
         "Choose one primary stack—TypeScript, React, Node.js, and PostgreSQL—to reduce the cost of constantly switching languages and frameworks.",
         "Ship a working result at every stage; a useful split is roughly 30% study and 70% building and debugging.",
@@ -175,6 +177,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       summary: "Understanding how browsers, servers, DNS, TCP/TLS, and HTTP work together is the shared foundation for cross-stack debugging and API design.",
       ...roadmapDetails["web-and-http"],
       formula: "URL → DNS → connection and TLS → HTTP request → server response → browser rendering",
+      pointDetails: fullstackPointDetailsEnglish["web-and-http"],
       points: [
         "Learn URLs, methods, status codes, headers, cookies, caching, and CORS, and explain a request with the browser Network panel.",
         "Understand that HTTP is stateless and distinguish client errors, server errors, network failures, and business failures.",
@@ -193,6 +196,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       summary: "A page is first a meaningful, accessible document and only then a visual interface. Layout skill should begin with normal document flow.",
       ...roadmapDetails["html-css-accessibility"],
       formula: "semantic structure + responsive layout + accessible interaction = resilient interface",
+      pointDetails: fullstackPointDetailsEnglish["html-css-accessibility"],
       points: [
         "Use semantic elements, form labels, image alternatives, and heading hierarchy so keyboards, screen readers, and search engines understand the page.",
         "Master the box model, cascade, Flexbox, Grid, positioning, and media queries; prefer layout systems over manual coordinates.",
@@ -211,6 +215,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       summary: "JavaScript determines runtime behavior while TypeScript adds development-time constraints. Types do not replace runtime validation.",
       ...roadmapDetails["javascript-typescript"],
       formula: "validate input → narrow types → transform with pure functions → isolate side effects",
+      pointDetails: fullstackPointDetailsEnglish["javascript-typescript"],
       points: [
         "Master scope, closures, prototypes, modules, the event loop, promises, async/await, and error propagation.",
         "Use unions, generics, type guards, and unknown to express real constraints instead of hiding design problems with any.",
@@ -229,6 +234,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       summary: "React describes interfaces with state and uses component boundaries to control complexity; the goal is not to create the largest possible file tree.",
       ...roadmapDetails["react-architecture"],
       formula: "UI = f(props, state); composition before page-specific variants",
+      pointDetails: fullstackPointDetailsEnglish["react-architecture"],
       points: [
         "Understand rendering, events, effects, controlled forms, and lifecycle; do not use effects to synchronize values that can be derived directly.",
         "Reuse the project component library and primitives before extracting domain components; let component APIs express business intent.",
@@ -247,6 +253,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       summary: "Identify state ownership before choosing a tool. Server data, URLs, forms, and temporary UI state should not all live in React State.",
       ...roadmapDetails["frontend-data-flow"],
       formula: "Server State + URL State + Form State + UI State",
+      pointDetails: fullstackPointDetailsEnglish["frontend-data-flow"],
       points: [
         "Lists, caching, and revalidation are Server State; filters, pagination, and shareable views usually belong in the URL.",
         "Forms need field validation, submission state, and server-error mapping; short-lived state such as dialog visibility stays near the component.",
@@ -265,6 +272,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       summary: "Performance work starts with user metrics and the browser pipeline: measure the bottleneck before reducing network, main-thread, or rendering cost.",
       ...roadmapDetails["browser-performance"],
       formula: "load → parse → execute → layout → paint → interact",
+      pointDetails: fullstackPointDetailsEnglish["browser-performance"],
       points: [
         "Understand the DOM, CSSOM, rendering pipeline, storage, and caching, and use Performance, Network, and Lighthouse to locate bottlenecks.",
         "Improve LCP, INP, and CLS through critical-resource planning, code splitting, image sizing, shorter tasks, and stable layouts.",
@@ -283,6 +291,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       summary: "The backend owns trusted business rules, data boundaries, and resource lifecycles. APIs should model domain capabilities rather than one page.",
       ...roadmapDetails["backend-api"],
       formula: "parse → authenticate → validate → business service → data access → stable response",
+      pointDetails: fullstackPointDetailsEnglish["backend-api"],
       points: [
         "Learn the Node.js runtime, routing, middleware, dependency injection, error handling, configuration, and structured logging.",
         "Design REST APIs around resources and use cases with consistent pagination, errors, idempotency, and versioning; reuse existing APIs first.",
@@ -301,6 +310,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       summary: "Database design begins with business facts, constraints, and query patterns. An ORM improves productivity but does not replace SQL or transaction knowledge.",
       ...roadmapDetails["database-modeling"],
       formula: "entities + relationships + constraints + indexes + transactions",
+      pointDetails: fullstackPointDetailsEnglish["database-modeling"],
       points: [
         "Learn tables, keys, foreign keys, unique constraints, normalization, joins, aggregation, indexes, and EXPLAIN.",
         "Use transactions for writes that must succeed together and migrations for schema evolution instead of editing production structures directly.",
@@ -319,6 +329,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       summary: "Authentication asks who you are; authorization asks what you may do. External input and permission checks belong at trusted backend boundaries.",
       ...roadmapDetails["auth-security"],
       formula: "authentication + resource authorization + validation + least privilege + audit",
+      pointDetails: fullstackPointDetailsEnglish["auth-security"],
       points: [
         "Understand sessions, cookies, tokens, OAuth, password hashing, and secret management, and prefer mature authentication solutions.",
         "Mitigate XSS, CSRF, SQL injection, SSRF, brute force, and secret leakage with security headers and rate limits.",
@@ -337,6 +348,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       summary: "Tests prove expected behavior while observability explains real runtime behavior. Together they shorten the path from failure to repair.",
       ...roadmapDetails["testing-observability"],
       formula: "static checks + unit + integration + E2E + logs/metrics/traces",
+      pointDetails: fullstackPointDetailsEnglish["testing-observability"],
       points: [
         "Test critical business rules, APIs, and user journeys while avoiding fragile coupling to internal implementation details.",
         "Run lint, typecheck, tests, and builds in CI, and make every failure reproducible.",
@@ -355,6 +367,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       summary: "Turn the local app into a continuously deliverable product, then integrate the full roadmap through one capstone with real constraints.",
       ...roadmapDetails["delivery-capstone"],
       formula: "code → CI → artifact → migration → deploy → health check → monitor and roll back",
+      pointDetails: fullstackPointDetailsEnglish["delivery-capstone"],
       points: [
         "Understand environment variables, Docker, reverse proxies, domains, TLS, migrations, backups, and the basics of zero-downtime deployment.",
         "Include authentication, CRUD, search or filtering, permissions, persistence, tests, logs, and a live deployment in the capstone.",

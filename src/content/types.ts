@@ -40,6 +40,14 @@ export type NoteLessonExample = {
   translation: string;
 };
 
+export type NoteLessonPointDetail = {
+  title: string;
+  explanation: string;
+  concepts: string[];
+  application: string;
+  pitfalls: string[];
+};
+
 export type NoteLesson = {
   id: string;
   title: string;
@@ -50,6 +58,7 @@ export type NoteLesson = {
   objectives?: string[];
   formula: string;
   points: string[];
+  pointDetails?: NoteLessonPointDetail[];
   practice?: string[];
   deliverables?: string[];
   acceptanceCriteria?: string[];
