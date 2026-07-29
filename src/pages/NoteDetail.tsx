@@ -73,7 +73,33 @@ function LessonDetail({ note, lessonId }: { note: Note; lessonId: string }) {
               <p className="section-label">{lesson.eyebrow}</p>
               <h1 className="display-title mt-6 text-[2.75rem] font-black sm:text-7xl">{lesson.title}</h1>
               <p className="mt-5 text-lg leading-8 text-muted-foreground">{lesson.summary}</p>
+              {lesson.duration && (
+                <p className="mt-5 inline-flex border-2 border-foreground bg-primary px-3 py-2 font-mono text-xs font-bold uppercase tracking-wider text-primary-foreground">
+                  {ui.suggestedDuration} · {lesson.duration}
+                </p>
+              )}
             </header>
+
+            {(lesson.prerequisites || lesson.objectives) && (
+              <div className="mt-9 grid gap-6 md:grid-cols-2">
+                {lesson.prerequisites && (
+                  <section className="creative-panel p-5" aria-labelledby="lesson-prerequisites">
+                    <h2 id="lesson-prerequisites" className="font-display text-2xl tracking-wide">{ui.prerequisites}</h2>
+                    <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
+                      {lesson.prerequisites.map((item) => <li className="border-l-2 border-primary pl-3" key={item}>{item}</li>)}
+                    </ul>
+                  </section>
+                )}
+                {lesson.objectives && (
+                  <section className="creative-panel p-5" aria-labelledby="lesson-objectives">
+                    <h2 id="lesson-objectives" className="font-display text-2xl tracking-wide">{ui.learningObjectives}</h2>
+                    <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
+                      {lesson.objectives.map((item) => <li className="border-l-2 border-primary pl-3" key={item}>{item}</li>)}
+                    </ul>
+                  </section>
+                )}
+              </div>
+            )}
 
             <section className="mt-9" aria-labelledby="lesson-formula">
               <h2 id="lesson-formula" className="font-display text-3xl tracking-wide">{ui.formula}</h2>
@@ -92,6 +118,41 @@ function LessonDetail({ note, lessonId }: { note: Note; lessonId: string }) {
                 ))}
               </ol>
             </section>
+
+            {lesson.practice && (
+              <section className="mt-10" aria-labelledby="lesson-practice">
+                <h2 id="lesson-practice" className="font-display text-3xl tracking-wide">{ui.handsOnPractice}</h2>
+                <ol className="mt-5 grid gap-4">
+                  {lesson.practice.map((item, index) => (
+                    <li className="creative-panel flex gap-4 p-5 leading-7" key={item}>
+                      <span className="font-mono text-lg font-bold text-primary">{String(index + 1).padStart(2, "0")}</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            )}
+
+            {(lesson.deliverables || lesson.acceptanceCriteria) && (
+              <div className="mt-10 grid gap-6 md:grid-cols-2">
+                {lesson.deliverables && (
+                  <section className="border-2 border-foreground p-5" aria-labelledby="lesson-deliverables">
+                    <h2 id="lesson-deliverables" className="font-display text-2xl tracking-wide">{ui.deliverables}</h2>
+                    <ul className="mt-4 space-y-3 leading-7">
+                      {lesson.deliverables.map((item) => <li className="flex gap-3" key={item}><span aria-hidden="true">→</span><span>{item}</span></li>)}
+                    </ul>
+                  </section>
+                )}
+                {lesson.acceptanceCriteria && (
+                  <section className="border-2 border-foreground bg-muted p-5" aria-labelledby="lesson-acceptance">
+                    <h2 id="lesson-acceptance" className="font-display text-2xl tracking-wide">{ui.acceptanceCriteria}</h2>
+                    <ul className="mt-4 space-y-3 leading-7">
+                      {lesson.acceptanceCriteria.map((item) => <li className="flex gap-3" key={item}><span aria-hidden="true">□</span><span>{item}</span></li>)}
+                    </ul>
+                  </section>
+                )}
+              </div>
+            )}
 
             <section className="mt-10" aria-labelledby="lesson-examples">
               <h2 id="lesson-examples" className="font-display text-3xl tracking-wide">{ui.examples}</h2>

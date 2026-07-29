@@ -45,8 +45,14 @@ export type NoteLesson = {
   title: string;
   eyebrow: string;
   summary: string;
+  duration?: string;
+  prerequisites?: string[];
+  objectives?: string[];
   formula: string;
   points: string[];
+  practice?: string[];
+  deliverables?: string[];
+  acceptanceCriteria?: string[];
   examples: NoteLessonExample[];
   tip: string;
 };

@@ -39,6 +39,14 @@ describe("public routes", () => {
     expect(screen.getAllByRole("link", { name: "1.1 Articles" })[0]).toHaveAttribute("aria-current", "page");
   });
 
+  it("renders the full-stack roadmap with actionable completion details", async () => {
+    render(<MemoryRouter initialEntries={["/notes/fullstack-roadmap/backend-api"]}><AppRoutes /></MemoryRouter>);
+    expect(await screen.findByRole("heading", { level: 1, name: "Backend and API Design" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Hands-on practice" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Stage deliverables" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Completion criteria" })).toBeInTheDocument();
+  });
+
   it("renders a noindex 404 for an unknown route", async () => {
     render(<MemoryRouter initialEntries={["/missing"]}><AppRoutes /></MemoryRouter>);
     expect(await screen.findByRole("heading", { level: 1, name: "Page not found" })).toBeInTheDocument();

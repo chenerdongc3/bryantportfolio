@@ -43,6 +43,14 @@ describe("content model", () => {
     expect(roadmap?.lessons?.map((lesson) => lesson.id)).toEqual(
       outlineItems.map((item) => item.id),
     );
+    roadmap?.lessons?.forEach((lesson) => {
+      expect(lesson.duration).toBeTruthy();
+      expect(lesson.prerequisites?.length).toBeGreaterThanOrEqual(2);
+      expect(lesson.objectives?.length).toBeGreaterThanOrEqual(3);
+      expect(lesson.practice?.length).toBeGreaterThanOrEqual(3);
+      expect(lesson.deliverables?.length).toBeGreaterThanOrEqual(2);
+      expect(lesson.acceptanceCriteria?.length).toBeGreaterThanOrEqual(3);
+    });
     expect(getIndexableRoutes()).toEqual(expect.arrayContaining([
       "/notes/fullstack-roadmap",
       "/notes/fullstack-roadmap/delivery-capstone",

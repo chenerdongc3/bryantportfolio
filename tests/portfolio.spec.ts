@@ -75,6 +75,19 @@ test("German notes are indexable and unknown routes return 404", async ({ page }
   await expect(page.getByRole("heading", { level: 1, name: "Page not found" })).toBeVisible();
 });
 
+test("full-stack roadmap lessons expose actionable milestones", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 900 });
+  const response = await page.goto("/notes/fullstack-roadmap/backend-api");
+  expect(response?.status()).toBe(200);
+  await expect(page.getByText("Suggested duration · 3 weeks")).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "Hands-on practice" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "Stage deliverables" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "Completion criteria" })).toBeVisible();
+  const sizes = await page.evaluate(() => ({ client: document.documentElement.clientWidth, scroll: document.documentElement.scrollWidth }));
+  expect(sizes.scroll).toBeLessThanOrEqual(sizes.client);
+  expect(await response?.text()).toContain("Write an OpenAPI or interface contract");
+});
+
 test("public pages do not overflow common viewport widths", async ({ page }) => {
   for (const width of [375, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });

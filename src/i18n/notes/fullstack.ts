@@ -1,4 +1,108 @@
-import type { Note } from "@/content/types";
+import type { Note, NoteLesson } from "@/content/types";
+
+type RoadmapDetails = Required<Pick<
+  NoteLesson,
+  "duration" | "prerequisites" | "objectives" | "practice" | "deliverables" | "acceptanceCriteria"
+>>;
+
+const roadmapDetails = {
+  "learning-strategy": {
+    duration: "1–2 days to plan, then a weekly review",
+    prerequisites: ["A computer where you can install Node.js, Git, and a code editor.", "At least 8–12 focused hours each week and one project theme that can grow across the roadmap."],
+    objectives: ["Sequence the roadmap by dependency instead of chasing frameworks in parallel.", "Build a learning rhythm centered on deliverables and evidence.", "Create sustainable records for code, questions, and retrospectives."],
+    practice: ["Create a learning repository with the target user, capstone theme, time budget, and twelve checkpoints.", "Create a Stage I issue board where each task names its input, hands-on work, and verifiable result.", "Complete a 45-minute closed-book exercise and record blockers, debugging steps, and the next improvement."],
+    deliverables: ["A dependency-aware learning plan with stage-level time budgets.", "A repository with a README, issues, commit conventions, and a weekly retrospective template."],
+    acceptanceCriteria: ["Explain the primary stack and which alternatives are intentionally deferred.", "End every stage with a working result rather than only a course list.", "Show two consecutive weeks of tangible progress through commits, tests, or live releases."],
+  },
+  "web-and-http": {
+    duration: "1 week",
+    prerequisites: ["You can use the Network, Console, and Application panels in browser developer tools.", "You have basic command-line skills and can run curl and read JSON."],
+    objectives: ["Describe the path from entering a URL to seeing a rendered page.", "Use methods, status codes, headers, and bodies to identify a failing layer.", "Explain the responsibilities and failures of caching, cookies, CORS, and TLS."],
+    practice: ["Capture a real page's documents, assets, and API calls; annotate dependencies, caching, and timing.", "Build GET, POST, 404, and consistent JSON errors with Node.js's native HTTP module.", "Create 401, 404, 500, CORS, and timeout failures and document browser and curl evidence."],
+    deliverables: ["A request-flow diagram covering DNS, TLS, HTTP, and browser rendering.", "A framework-free HTTP service with repeatable curl verification."],
+    acceptanceCriteria: ["Separate network, protocol, and business failures using Network evidence.", "Explain when to use fresh caching, revalidation, or no-store.", "Explain why browsers enforce CORS while server-to-server requests do not share that constraint."],
+  },
+  "html-css-accessibility": {
+    duration: "2 weeks",
+    prerequisites: ["You understand files, directories, relative paths, and static assets.", "You can make basic Git commits and inspect browser elements."],
+    objectives: ["Build clear, crawlable structure with semantic HTML.", "Create responsive layouts with normal flow, Flexbox, and Grid.", "Support keyboard, screen-reader, zoom, and reduced-motion users."],
+    practice: ["Build a responsive portfolio without a UI framework, including navigation, projects, a form, and a footer.", "Complete navigation and form submission by keyboard; fix focus order, visibility, and errors.", "Audit headings, names, roles, contrast, and target sizes with the accessibility tree and an automated checker."],
+    deliverables: ["A static site that remains stable at 320px, 768px, and 1440px.", "An accessibility audit with issues, before-and-after evidence, and manual keyboard results."],
+    acceptanceCriteria: ["Avoid document-level horizontal scrolling at narrow widths and 200% zoom.", "Make every interaction keyboard-operable with logical focus order.", "Use one H1, accessible control names, and meaningful image alternatives."],
+  },
+  "javascript-typescript": {
+    duration: "3 weeks",
+    prerequisites: ["You can build an HTML/CSS page and load JavaScript modules.", "You understand variables, conditions, loops, functions, arrays, and objects."],
+    objectives: ["Explain scope, closures, prototypes, the event loop, and async errors.", "Model domain data and transitions with TypeScript.", "Validate API, form, and environment input at runtime."],
+    practice: ["Build a task app with filtering, sorting, local persistence, and pure data transformations.", "Implement a Promise queue or concurrency limiter and observe microtask, timer, and failure ordering.", "Parse unknown API data into a discriminated union and test valid and invalid cases."],
+    deliverables: ["A strict TypeScript application without any-based escape hatches.", "Unit tests for data transformation, async failure, and boundary input."],
+    acceptanceCriteria: ["Predict and explain common asynchronous execution order.", "Validate external data before it enters business logic.", "Use types to exclude illegal states with clean compilation and tests."],
+  },
+  "react-architecture": {
+    duration: "3 weeks",
+    prerequisites: ["You understand modules, array methods, async work, and DOM events.", "You can build the target layout in HTML and CSS before introducing React."],
+    objectives: ["Understand rendering, state snapshots, events, effects, and unmounting.", "Separate UI primitives, domain components, and pages.", "Control coupling through composition, explicit props, and one-way flow."],
+    practice: ["Move the task app to React while preserving domain functions and tests.", "Build list, detail, edit, and confirmation flows with loading, empty, and error states.", "Review every effect, remove derived-state synchronization, and verify Strict Mode behavior."],
+    deliverables: ["A React app with reusable domain components and explicit page and failure boundaries.", "A component diagram showing state owners, event flow, and reuse boundaries."],
+    acceptanceCriteria: ["Keep unrelated API work and global state out of presentational components.", "Avoid duplicated derived state and give every effect a synchronization target and cleanup.", "Verify core components through interaction tests rather than implementation snapshots."],
+  },
+  "frontend-data-flow": {
+    duration: "2 weeks",
+    prerequisites: ["You can build React pages with several interaction states.", "You understand HTTP failures and browser history."],
+    objectives: ["Assign one authority to Server, URL, Form, and UI State.", "Design views that survive refresh, sharing, and browser navigation.", "Handle caching, revalidation, races, and failed optimistic updates."],
+    practice: ["Add URL-driven search, tags, sorting, and pagination to a project list.", "Add query caching and demonstrate stale data, refetch, invalidation, and request cancellation.", "Build an edit form with client validation, server field errors, and duplicate-submit protection."],
+    deliverables: ["A state inventory naming authority, persistence, and invalidation.", "A deep-linkable multi-route app that handles every asynchronous state."],
+    acceptanceCriteria: ["Restore the same filtered or detail view when opening its URL elsewhere.", "Prevent old responses from overwriting current data during rapid navigation.", "Map form failures to a field or global cause without duplicate side effects."],
+  },
+  "browser-performance": {
+    duration: "1–2 weeks",
+    prerequisites: ["You have a working multi-route React app and understand HTTP caching.", "You can record Network, Performance, Coverage, and Lighthouse evidence."],
+    objectives: ["Map LCP, INP, and CLS to resources and rendering behavior.", "Identify waterfalls, large bundles, long tasks, rerenders, and layout shift.", "Choose CSR, SSG, or SSR from content and interaction needs."],
+    practice: ["Record a mobile baseline for waterfalls, bundle size, LCP, INP, and CLS.", "Apply route splitting, image, font, and caching changes one variable group at a time.", "Create a long task and layout shift, then find and fix the root cause in a trace."],
+    deliverables: ["A performance report with environment, steps, before-and-after data, and tradeoffs.", "A production bundle analysis explaining each major chunk and its load time."],
+    acceptanceCriteria: ["Support every optimization with comparable before-and-after evidence.", "Remove layout shifts caused by critical images without dimensions.", "Keep unused large feature modules out of the initial route."],
+  },
+  "backend-api": {
+    duration: "3 weeks",
+    prerequisites: ["You understand TypeScript async programming, HTTP methods, status codes, and JSON.", "You can verify requests without a frontend using curl or an API client."],
+    objectives: ["Separate routes, application services, domain rules, and data access.", "Design consistent resource, error, pagination, idempotency, and version contracts.", "Make logging, configuration, exceptions, and shutdown production-ready."],
+    practice: ["Write an OpenAPI or interface contract before project CRUD implementation.", "Add one error format, pagination, request IDs, configuration validation, and graceful shutdown.", "Add an idempotency key and prove with concurrent requests that creation cannot duplicate resources."],
+    deliverables: ["A layered standalone Node.js API with interface documentation.", "Repeatable HTTP examples and integration tests for core business rules."],
+    acceptanceCriteria: ["Complete every core use case from the contract and command line.", "Return stable, distinct validation, unauthenticated, forbidden, missing, and internal errors.", "Keep complex business rules out of route handlers and test services independently."],
+  },
+  "database-modeling": {
+    duration: "3 weeks",
+    prerequisites: ["You have completed a CRUD API with in-memory or simple storage.", "You understand entities, identifiers, relationships, and common queries."],
+    objectives: ["Encode invariants as database types and constraints.", "Use transactions and migrations to evolve data safely.", "Design and verify indexes with EXPLAIN and real queries."],
+    practice: ["Draw an ER diagram for users, projects, members, and activity logs and list five critical queries.", "Create migrations, seed data, and a rollback strategy; reject duplicates and orphan records with constraints.", "Generate test data and compare EXPLAIN ANALYZE plans before and after an index."],
+    deliverables: ["Schema migrations and seed scripts that recreate the database from empty.", "An ER diagram, critical-query inventory, and index rationale."],
+    acceptanceCriteria: ["Govern related deletes and updates with explicit foreign-key policies.", "Protect uniqueness and atomicity under concurrent writes.", "Name the query served by each non-primary index and its write cost."],
+  },
+  "auth-security": {
+    duration: "2–3 weeks",
+    prerequisites: ["You have a PostgreSQL-backed API and understand cookies, headers, and transactions.", "You can distinguish identity, roles, ownership, and public access."],
+    objectives: ["Build secure registration, sign-in, sign-out, expiration, and recovery.", "Enforce ownership or role authorization in each resource use case.", "Threat-model the app and apply layered web defenses."],
+    practice: ["Use a mature library for secure cookie sessions, password hashing, rotation, sign-out, and expiration.", "Create a guest, member, and admin permission matrix with negative authorization tests.", "Verify XSS, CSRF, injection, rate limiting, and sensitive-log handling against a threat model."],
+    deliverables: ["An identity flow, resource permission matrix, and prioritized threat list.", "Tests covering the authentication lifecycle and horizontal and vertical escalation."],
+    acceptanceCriteria: ["Verify identity and resource authorization on every private operation.", "Keep passwords, sessions, secrets, and personal data out of source control and ordinary logs.", "Avoid leaking sensitive detail across unauthenticated, forbidden, and not-found responses."],
+  },
+  "testing-observability": {
+    duration: "2 weeks",
+    prerequisites: ["You have an end-to-end slice across frontend, API, database, and authentication.", "Core rules and external boundaries are explicit enough to identify high-risk failures."],
+    objectives: ["Allocate static, unit, integration, and E2E tests by risk.", "Correlate requests, user actions, errors, and latency.", "Make CI failures and production incidents reproducible."],
+    practice: ["Write unit, API integration, and E2E tests for one flow involving authorization and a transaction.", "Add lint, typecheck, tests, build, and migration checks to CI and preserve failure artifacts.", "Inject an exception and a slow query, then trace the frontend error through request ID, logs, and database duration."],
+    deliverables: ["A test portfolio covering core journeys, risk boundaries, and regressions.", "An observability view with logs, error tracking, core metrics, and a minimal alert."],
+    acceptanceCriteria: ["Run tests with one command in a new environment without order dependence.", "Verify persistence, permissions, and recovery in the core E2E.", "Use one error ID to locate the request, version, affected scope, and failure stage."],
+  },
+  "delivery-capstone": {
+    duration: "4–6 weeks",
+    prerequisites: ["Complete the previous eleven lessons with tests and retrospective evidence.", "Select a real user problem, bound an MVP, and secure access to a deployment platform."],
+    objectives: ["Build delivery from commit through migration, deploy, verification, and rollback.", "Iterate an end-to-end product slice with real data and permissions.", "Prove operations and maintainability through docs, demos, monitoring, and review."],
+    practice: ["In Week 1, ship registration through the core value action without waiting for every page.", "In Weeks 2–4, add permissions, recovery, search, tests, logs, backups, and responsive UX.", "Run a production exercise covering migration, deploy, health checks, smoke tests, failure injection, and rollback."],
+    deliverables: ["A production capstone with persistent data, auth, tests, and monitoring.", "A README, architecture decisions, API/data model, deployment runbook, and demo video.", "A retrospective and prioritized backlog grounded in real feedback, incidents, and metrics."],
+    acceptanceCriteria: ["Let a new user complete the production core journey with data preserved across sessions.", "Run clean-state CI and maintain migration, verification, and rollback paths.", "Turn feedback from at least three target users into prioritized improvements.", "Locate one injected failure from an alert within ten minutes and explain impact and recovery."],
+  },
+} satisfies Record<string, RoadmapDetails>;
 
 export const fullstackRoadmapNoteEnglish: Note = {
   slug: "fullstack-roadmap",
@@ -51,6 +155,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       eyebrow: "1.1 · Web Foundations",
       title: "Learning Strategy",
       summary: "Full-stack learning is not about collecting technologies. It is about independently turning a real requirement into a working, maintainable, and verifiable product.",
+      ...roadmapDetails["learning-strategy"],
       formula: "understand → complete a small exercise → apply in a project → review and refactor",
       points: [
         "Choose one primary stack—TypeScript, React, Node.js, and PostgreSQL—to reduce the cost of constantly switching languages and frameworks.",
@@ -68,6 +173,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       eyebrow: "1.2 · Web Foundations",
       title: "The Web and HTTP",
       summary: "Understanding how browsers, servers, DNS, TCP/TLS, and HTTP work together is the shared foundation for cross-stack debugging and API design.",
+      ...roadmapDetails["web-and-http"],
       formula: "URL → DNS → connection and TLS → HTTP request → server response → browser rendering",
       points: [
         "Learn URLs, methods, status codes, headers, cookies, caching, and CORS, and explain a request with the browser Network panel.",
@@ -85,6 +191,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       eyebrow: "1.3 · Web Foundations",
       title: "HTML, CSS, and Accessibility",
       summary: "A page is first a meaningful, accessible document and only then a visual interface. Layout skill should begin with normal document flow.",
+      ...roadmapDetails["html-css-accessibility"],
       formula: "semantic structure + responsive layout + accessible interaction = resilient interface",
       points: [
         "Use semantic elements, form labels, image alternatives, and heading hierarchy so keyboards, screen readers, and search engines understand the page.",
@@ -102,6 +209,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       eyebrow: "1.4 · Web Foundations",
       title: "JavaScript and TypeScript",
       summary: "JavaScript determines runtime behavior while TypeScript adds development-time constraints. Types do not replace runtime validation.",
+      ...roadmapDetails["javascript-typescript"],
       formula: "validate input → narrow types → transform with pure functions → isolate side effects",
       points: [
         "Master scope, closures, prototypes, modules, the event loop, promises, async/await, and error propagation.",
@@ -119,6 +227,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       eyebrow: "2.1 · Frontend Development",
       title: "React and Component Architecture",
       summary: "React describes interfaces with state and uses component boundaries to control complexity; the goal is not to create the largest possible file tree.",
+      ...roadmapDetails["react-architecture"],
       formula: "UI = f(props, state); composition before page-specific variants",
       points: [
         "Understand rendering, events, effects, controlled forms, and lifecycle; do not use effects to synchronize values that can be derived directly.",
@@ -136,6 +245,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       eyebrow: "2.2 · Frontend Development",
       title: "State, Routing, and Data Flow",
       summary: "Identify state ownership before choosing a tool. Server data, URLs, forms, and temporary UI state should not all live in React State.",
+      ...roadmapDetails["frontend-data-flow"],
       formula: "Server State + URL State + Form State + UI State",
       points: [
         "Lists, caching, and revalidation are Server State; filters, pagination, and shareable views usually belong in the URL.",
@@ -153,6 +263,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       eyebrow: "2.3 · Frontend Development",
       title: "Browsers and Performance",
       summary: "Performance work starts with user metrics and the browser pipeline: measure the bottleneck before reducing network, main-thread, or rendering cost.",
+      ...roadmapDetails["browser-performance"],
       formula: "load → parse → execute → layout → paint → interact",
       points: [
         "Understand the DOM, CSSOM, rendering pipeline, storage, and caching, and use Performance, Network, and Lighthouse to locate bottlenecks.",
@@ -170,6 +281,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       eyebrow: "3.1 · Backend and Data",
       title: "Backend and API Design",
       summary: "The backend owns trusted business rules, data boundaries, and resource lifecycles. APIs should model domain capabilities rather than one page.",
+      ...roadmapDetails["backend-api"],
       formula: "parse → authenticate → validate → business service → data access → stable response",
       points: [
         "Learn the Node.js runtime, routing, middleware, dependency injection, error handling, configuration, and structured logging.",
@@ -187,6 +299,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       eyebrow: "3.2 · Backend and Data",
       title: "Databases and Data Modeling",
       summary: "Database design begins with business facts, constraints, and query patterns. An ORM improves productivity but does not replace SQL or transaction knowledge.",
+      ...roadmapDetails["database-modeling"],
       formula: "entities + relationships + constraints + indexes + transactions",
       points: [
         "Learn tables, keys, foreign keys, unique constraints, normalization, joins, aggregation, indexes, and EXPLAIN.",
@@ -204,6 +317,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       eyebrow: "3.3 · Backend and Data",
       title: "Authentication, Authorization, and Security",
       summary: "Authentication asks who you are; authorization asks what you may do. External input and permission checks belong at trusted backend boundaries.",
+      ...roadmapDetails["auth-security"],
       formula: "authentication + resource authorization + validation + least privilege + audit",
       points: [
         "Understand sessions, cookies, tokens, OAuth, password hashing, and secret management, and prefer mature authentication solutions.",
@@ -221,6 +335,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       eyebrow: "4.1 · Engineering and Delivery",
       title: "Testing and Observability",
       summary: "Tests prove expected behavior while observability explains real runtime behavior. Together they shorten the path from failure to repair.",
+      ...roadmapDetails["testing-observability"],
       formula: "static checks + unit + integration + E2E + logs/metrics/traces",
       points: [
         "Test critical business rules, APIs, and user journeys while avoiding fragile coupling to internal implementation details.",
@@ -238,6 +353,7 @@ export const fullstackRoadmapNoteEnglish: Note = {
       eyebrow: "4.2 · Engineering and Delivery",
       title: "Deployment and Capstone",
       summary: "Turn the local app into a continuously deliverable product, then integrate the full roadmap through one capstone with real constraints.",
+      ...roadmapDetails["delivery-capstone"],
       formula: "code → CI → artifact → migration → deploy → health check → monitor and roll back",
       points: [
         "Understand environment variables, Docker, reverse proxies, domains, TLS, migrations, backups, and the basics of zero-downtime deployment.",
