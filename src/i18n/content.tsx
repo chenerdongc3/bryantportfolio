@@ -172,6 +172,71 @@ export const projectsEnglish: Project[] = [
     ],
   },
   {
+    slug: "agent-workbench-lab",
+    title: "Agent Workbench Lab",
+    summary: "An agent systems research prototype with interchangeable runtimes, exploring observable and recoverable task execution through project isolation, context and memory, multi-agent scheduling, tool approvals, and event replay.",
+    period: "Agent Systems Research Prototype",
+    tags: ["TypeScript", "React", "Agent Harness", "SQLite", "SSE"],
+    featured: true,
+    draft: false,
+    sections: [
+      {
+        title: "Research question and scope",
+        paragraphs: [
+          "A runnable web workbench for studying the path from an agent receiving a task to returning a result: how context reaches the model, tool actions receive authorization, progress is displayed, and conversations and results are recovered after interruption.",
+          "A file editor, conversation timeline, diff approvals, and event inspector expose execution state and boundaries. The project is a research prototype for validating architecture decisions and interaction mechanisms.",
+        ],
+      },
+      {
+        title: "Runtime adapters and Codex integration",
+        items: [
+          "A shared RuntimeAdapter connects Demo, Codex app-server, OpenAI API, and Google Gemini API runtimes through one workbench UI, approval flow, and event protocol.",
+          "Codex mode reuses the native agent loop, Thread / Turn / Item semantics, and approval requests. The workbench implements its own project management, interface, and state projections.",
+          "When calling model APIs directly, the workbench runtime owns the tool loop, tool-result feedback, and context reconstruction. Demo mode deterministically exercises acceptance, rejection, and file-revision conflicts.",
+        ],
+      },
+      {
+        title: "Context and project memory",
+        items: [
+          "Separates complete conversation records, model-visible context, and project memory shared across threads. Summaries, recent-message windows, and relevant memories fit within token budgets; compaction preserves original records.",
+          "Long-term memories reference real Thread / Turn / Item sources, use SQLite FTS5 retrieval, and support invalidation. A two-stage pipeline extracts only explicitly requested memories, validates provenance, and updates the project summary.",
+          "Projects isolate workspaces, conversations, memories, approvals, and events to prevent context from leaking across projects or threads.",
+        ],
+      },
+      {
+        title: "Multi-agent scheduling and file coordination",
+        items: [
+          "Models child agents as independent threads with minimal context, concurrency limits, FIFO queues, and result feedback. The prototype allows a root plus three child agents, with a maximum delegation depth of one.",
+          "Child agents default to read-only access and do not contribute to long-term memory extraction. Write tasks acquire path leases before approval and file-revision checks to reduce conflicting edits.",
+          "Supports recursive cancellation of unfinished child tasks while retaining completed results. The root conversation receives lifecycle summaries and final results.",
+        ],
+      },
+      {
+        title: "Tool authorization and consistent file writes",
+        items: [
+          "The host classifies read, edit, memory, and delegation intent before execution, then limits the available tools. Low-confidence requests enter a clarification flow.",
+          "Agent edits pass through a change proposal, diff approval, revision check, and actual write before the result returns to the model. A changed file revision prevents a stale approved edit from overwriting newer content.",
+          "File access is confined to the current project workspace. Manual saves and agent proposals follow separate authorization paths while sharing file-revision checks.",
+        ],
+      },
+      {
+        title: "Persistence, event replay, and recovery",
+        items: [
+          "SQLite stores conversation messages, execution events, approvals, and context checkpoints. Sequenced SSE events update the UI with reconnection replay and deduplication.",
+          "Separates file-change events from task-completion events: file views refresh from actual workspace changes, while the conversation timeline reflects execution results.",
+          "Idempotency keys prevent duplicate task starts. After a restart, persisted conversations are restored and interrupted tasks and expired approvals are explicitly marked to avoid false success states.",
+        ],
+      },
+      {
+        title: "Prototype boundaries and further research",
+        paragraphs: [
+          "Intent classification, non-Codex context summaries, and memory extraction currently use deterministic rules. Semantic memory extraction, cross-thread conflict consolidation, comprehensive quality evaluation, and multi-process scheduling remain research directions.",
+          "Idempotency records persist once a task starts, but the compatibility queue for tasks that have not started remains in memory and does not survive a server restart. Restoring a conversation does not automatically resume an interrupted task.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "ai-conversation-practice",
     title: "AI Conversation Practice",
     summary: "An AI conversation frontend for language and speaking practice with voice and text input, multi-turn memory, streaming responses, session history, and expression feedback.",
