@@ -5,7 +5,8 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { localizeMetadata } from "@/i18n/seo";
 
 export function PageSeo() {
-  const { pathname } = useLocation();
+  const { pathname: currentPathname } = useLocation();
+  const pathname = currentPathname.replace(/\/+$/, "") || "/";
   const { language } = useLanguage();
 
   useEffect(() => {

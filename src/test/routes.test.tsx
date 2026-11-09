@@ -1,9 +1,11 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import { AppRoutes } from "@/App";
 
 describe("public routes", () => {
+  afterEach(() => window.localStorage.clear());
+
   it("leads with English experience and keeps selected project proof on the homepage", async () => {
     render(<MemoryRouter initialEntries={["/"]}><AppRoutes /></MemoryRouter>);
     expect(await screen.findByRole("heading", { level: 2, name: /See the problems/ })).toBeInTheDocument();
@@ -17,6 +19,16 @@ describe("public routes", () => {
   it("renders a project deep link", async () => {
     render(<MemoryRouter initialEntries={["/projects/ai-conversation-practice"]}><AppRoutes /></MemoryRouter>);
     expect(await screen.findByRole("heading", { level: 1, name: "AI Conversation Practice" })).toBeInTheDocument();
+  });
+
+  it("keeps project directory URLs indexable with localized metadata", async () => {
+    render(<MemoryRouter initialEntries={["/projects/agent-workbench-lab/"]}><AppRoutes /></MemoryRouter>);
+    expect(await screen.findByRole("heading", { level: 1, name: "Agent Workbench Lab" })).toBeInTheDocument();
+    expect(document.title).toBe("Agent Workbench Lab | Projects | Bryant");
+    expect(document.querySelector('meta[name="robots"]')).toHaveAttribute("content", "index, follow");
+    fireEvent.click(screen.getByRole("button", { name: "切换到中文" }));
+    expect(document.title).toBe("Agent Workbench Lab｜项目｜Bryant");
+    expect(document.querySelector('meta[name="robots"]')).toHaveAttribute("content", "index, follow");
   });
 
   it("renders the German note from the notes index", async () => {
